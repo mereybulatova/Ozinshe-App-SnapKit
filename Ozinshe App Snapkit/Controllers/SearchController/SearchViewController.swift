@@ -91,12 +91,28 @@ class SearchViewController: UIViewController {
         return collectionView
     }()
     
+    let tableView: UITableView = {
+        let tv = UITableView()
+        tv.separatorStyle = .none
+        tv.allowsSelection = true
+        tv.showsVerticalScrollIndicator = false
+        tv.showsHorizontalScrollIndicator = false
+        
+        //Регистрация table view cell
+        tv.register(MainBannerTableViewCell.self, forCellReuseIdentifier: "MainBannerCell")
+        
+        return tv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //MARK: - Collection View
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         
         //MARK: - UI Elements
         view.backgroundColor = .systemBackground
@@ -123,6 +139,7 @@ class SearchViewController: UIViewController {
         view.addSubview(searchTextField)
         view.addSubview(titleLabel)
         view.addSubview(collectionView)
+        view.addSubview(tableView)
         
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
@@ -159,11 +176,28 @@ class SearchViewController: UIViewController {
             make.left.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        tableView.snp.makeConstraints { make in
+            make.right.left.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(collectionView)
+            make.top.equalTo(titleLabel.snp.bottom).inset(10)
+            
+        }
     }
 }
 
 
-extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
+        
+        return cell
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -176,3 +210,5 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
 }
+
+

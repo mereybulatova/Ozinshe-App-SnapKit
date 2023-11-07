@@ -1,19 +1,20 @@
 //
-//  HistoryCollectionViewCell.swift
+//  GenreCollectionViewCell.swift
 //  Ozinshe App Snapkit
 //
 //  Created by Мерей Булатова on 04.11.2023.
 //
 
 import UIKit
+import SnapKit
 
-class HistoryCollectionViewCell: UICollectionViewCell {
+class GenreCollectionViewCell: UICollectionViewCell {
     
-    let identifier = "HistoryCollectionCell"
+    let identifier = "GenreCollectionCell"
     
     let image = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "historyImage")
+        iv.image = UIImage(named: "genreImage")
         iv.layer.cornerRadius = 12
         iv.clipsToBounds = true
         
@@ -22,18 +23,10 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     let titleLabel = {
         let label = UILabel()
-        label.text = "Глобус"
-        label.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
-        
-        return label
-    }()
-    
-    let subtitleLabel = {
-        let label = UILabel()
-        label.text = "2-бөлім"
-        label.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
-        label.font = UIFont(name: "SFProDisplay-Regular", size: 12)
+        label.text = "Мультфильм"
+        label.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        label.textAlignment = .center
         
         return label
     }()
@@ -53,24 +46,18 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(image)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(subtitleLabel)
         
         image.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.right.equalToSuperview()
             make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(image.snp.bottom).offset(8)
-    }
-        subtitleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 }

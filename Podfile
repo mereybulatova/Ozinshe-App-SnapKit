@@ -11,5 +11,6 @@ target 'Ozinshe App Snapkit' do
   pod 'SnapKit'
   pod 'SwiftyJSON'
   pod 'SVProgressHUD'
+  pod 'YouTubePlayer'
   pod 'Localize-Swift'
 end

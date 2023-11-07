@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import SnapKit
 
 class HomeViewController: UIViewController {
     
+    //MARK: - Add TableView
         let tableView = {
         let tableView = UITableView()
         
@@ -17,6 +19,7 @@ class HomeViewController: UIViewController {
             tableView.showsVerticalScrollIndicator = false
             tableView.showsHorizontalScrollIndicator = false
             
+            //Регистрация table view cell
             tableView.register(MainBannerTableViewCell.self, forCellReuseIdentifier: "MainBannerCell")
             tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "HistoryCell")
             tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "MainCell")
@@ -27,8 +30,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         
+        setupUI()
         view.backgroundColor = .systemBackground
     }
     
