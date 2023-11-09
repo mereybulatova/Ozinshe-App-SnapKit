@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, LanguageProtocol {
     
     //MARK: - Add UI Elements
     let profileImageView = {
@@ -47,6 +47,7 @@ class ProfileViewController: UIViewController {
         button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(languageButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -85,6 +86,7 @@ class ProfileViewController: UIViewController {
         button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(userInfoButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -123,6 +125,7 @@ class ProfileViewController: UIViewController {
         button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(changePasswordTapped), for: .touchUpInside)
         
         return button
     }()
@@ -159,29 +162,102 @@ class ProfileViewController: UIViewController {
         
         dMSwitch.onTintColor = UIColor(red: 0.702, green: 0.463, blue: 0.969, alpha: 1)
         dMSwitch.thumbTintColor = UIColor(red: 0.9, green: 0.91, blue: 0.92, alpha: 1)
+        dMSwitch.addTarget(self, action: #selector(changeSwitch), for: .touchUpInside)
         
         return dMSwitch
     }()
     
-    let logOutButton = {
-        let button = UIButton()
-        
-        button.setImage(UIImage(named: "profile"), for: .normal)
+    //MARK: - View Controller Lifecycle
     
-        return button
-    }()
+    override func viewDidAppear(_ animated: Bool) {
+        setupUI()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
+        addNavBarImage()
+        
         view.backgroundColor = .systemBackground
-        navigationController?.title = "Profile"
+        navigationItem.title = "Profile"
     }
     
-    func setupUI() {
+    //MARK: - Add function
+    func localizeLanguage() {
+        navigationItem.title = "PROFILE_TITLE".localized()
+        userInfoButton.setTitle("USER_INFO_BUTTON".localized(), for: .normal)
+        userInfoLabel.text = "USER_INFO_EDIT_LABEL".localized()
+        passwordEditButton.setTitle("CHANGE_PASSWORD_BUTTON".localized(), for: .normal)
+        darkModeLabel.text = "DARK_MODE_LABEL".localized()
+        profileLabel.text = "MY_PROFILE".localized()
+        languageLabel.text = "LANGUAGE".localized()
+    }
+    
+    func addNavBarImage() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ""), style: .plain, target: self, action: #selector(LogOutTapButton))
+    }
+    
+    func languageDidChande() {
+        languageButtonTapped()
+    }
+    
+    @objc func languageButtonTapped() {
+        let languageVC = LanguageViewController()
         
-        //MARK: - Add subviews
+        languageVC.modalPresentationStyle = .overFullScreen
+        
+        languageVC.delegate = self
+        
+        present(languageVC, animated: true, completion: nil)
+    }
+    
+    @objc func LogOutTapButton() {
+        let logOutVC = LogOutViewController()
+        
+        logOutVC.modalPresentationStyle = .overFullScreen
+        
+        self.present(logOutVC, animated: true, completion: nil)
+    }
+    
+    @objc func userInfoButtonTapped() {
+        let userInfoVc = UserInfoViewController()
+        navigationItem.title = ""
+        
+        userInfoVc.modalPresentationStyle = .fullScreen
+        
+        navigationController?.show(userInfoVc, sender: self)
+    }
+    
+    @objc func changePasswordTapped() {
+        let changePassword = ChangePasswordViewController()
+        
+        navigationItem.title = ""
+        
+        navigationController?.show(changePassword, sender: self)
+    }
+    
+    @objc func changeSwitch(_ dmswitch: UISwitch) {
+        if dmswitch.isOn {
+            if let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive }) {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = .dark
+                }
+            }
+        } else {
+            if let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive }) {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = .light
+                }
+            }
+        }
+    }
+    
+    //MARK: - Add Subview & Constraints
+    func setupUI() {
         view.addSubview(profileImageView)
         view.addSubview(profileLabel)
         view.addSubview(subtitleProfileLabel)
@@ -199,7 +275,6 @@ class ProfileViewController: UIViewController {
         view.addSubview(darkModeLabel)
         view.addSubview(darkModeSwitch)
         
-        //MARK: - Constraints
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(32)
             make.centerX.equalToSuperview()

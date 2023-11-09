@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 class MovieTableViewCell: UITableViewCell {
+    
+    let identifier = "MovieTableCell"
+    
     let posterImageView = {
         let cellImageView = UIImageView()
         
@@ -79,6 +82,13 @@ class MovieTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setData(movie: Movie) {
+        posterImageView.sd_setImage(with: URL(string: movie.poster_link), completed: nil)
+        
+        titleLabel.text = movie.name
+        subtitleLabel.text = "\(movie.year) • \(movie.producer) • \(movie.seriesCount) серия"
     }
     
     func setupUI() {

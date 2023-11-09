@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-class LogOutViewController: UIViewController {
+class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
+    
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     let backView = {
         let view = UIView()
@@ -35,12 +37,14 @@ class LogOutViewController: UIViewController {
         agreeButton.setTitle("Иә, шығу", for: .normal)
         agreeButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         agreeButton.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
+        agreeButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         agreeButton.layer.cornerRadius = 12
         
         let disagreeButton = UIButton()
         disagreeButton.setTitle("Жоқ", for: .normal)
         disagreeButton.setTitleColor(UIColor(red: 0.329, green: 0.082, blue: 0.776, alpha: 1), for: .normal)
         disagreeButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
+        disagreeButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         disagreeButton.layer.cornerRadius = 12
         
         view.addSubview(homeView)
@@ -83,6 +87,11 @@ class LogOutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+    }
+    
+    func setupUI() {
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         
         view.addSubview(backView)
         
@@ -91,9 +100,58 @@ class LogOutViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.right.left.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    func tapGest() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
         
-        view.backgroundColor = .black
-//        view.layer.opacity = 0.4
-      
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    }
+    
+    @objc func dismissView() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleDismiss(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: view)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.backView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        case .ended:
+            if viewTranslation.y < 100 {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.backView.transform = .identity
+                })
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if (touch.view?.isDescendant(of: backView))! {
+            return false
+        }
+        return true
+    }
+    
+    @objc func logoutButtonTapped() {
+        UserDefaults.standard.removeObject(forKey: "accessToken")
+        
+        let rootVC = SignInViewController()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = rootVC
+        appDelegate.window?.makeKeyAndVisible()
+    }
+    
+    @objc func cancelButtonTapped() {
+        dismissView()
     }
 }

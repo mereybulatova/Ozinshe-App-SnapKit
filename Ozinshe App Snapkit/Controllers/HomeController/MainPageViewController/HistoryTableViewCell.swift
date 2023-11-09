@@ -7,13 +7,18 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class HistoryTableViewCell: UITableViewCell {
 
+    var mainMovie = MainMovies()
+    
+    var delegate : MovieProtocol?
+    
     let identifier = "HistoryCell"
     
     let historyCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = TopAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
@@ -52,6 +57,13 @@ class HistoryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(mainMovie: MainMovies) {
+        
+        self.mainMovie = mainMovie
+        
+        historyCollection.reloadData()
+    }
+    
     func setupUI() {
         
         contentView.addSubview(historyCollection)
@@ -76,12 +88,29 @@ class HistoryTableViewCell: UITableViewCell {
 extension HistoryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return mainMovie.movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCollectionCell", for: indexPath) as! HistoryCollectionViewCell
+        let transformer = SDImageResizingTransformer(size: CGSize(width: 184, height: 112), scaleMode: .aspectFill)
+        
+        cell.image.sd_setImage(with: URL(string: mainMovie.movies[indexPath.row].poster_link), placeholderImage: nil, context: [.imageTransformer: transformer])
+        cell.image.layer.cornerRadius = 8
+        
+        cell.titleLabel.text = mainMovie.movies[indexPath.row].name
+        
+        if let genrename = mainMovie.movies[indexPath.row].genres.first {
+            cell.subtitleLabel.text = genrename.name
+        } else {
+            cell.subtitleLabel.text = ""
+        }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        delegate?.movieDidSelect(movie: mainMovie.movies[indexPath.row])
     }
 }

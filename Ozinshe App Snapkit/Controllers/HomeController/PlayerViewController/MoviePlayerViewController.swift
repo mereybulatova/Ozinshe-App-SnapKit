@@ -11,6 +11,8 @@ import YouTubePlayer
 
 class MoviePlayerViewController: UIViewController {
     
+    var video_link = ""
+    
     let player = {
         let view = YouTubePlayerView()
         
@@ -26,6 +28,6 @@ class MoviePlayerViewController: UIViewController {
             make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        player.loadVideoID("")
+        player.loadVideoID(video_link)
     }
 }

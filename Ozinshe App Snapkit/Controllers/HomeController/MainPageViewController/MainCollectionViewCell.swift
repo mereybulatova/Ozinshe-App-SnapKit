@@ -61,7 +61,7 @@ class MainCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview()
             make.right.equalToSuperview()
             make.left.equalToSuperview()
-        }
+    }
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()

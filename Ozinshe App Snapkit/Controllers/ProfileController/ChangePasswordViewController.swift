@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+import Alamofire
+import SwiftyJSON
 
 class ChangePasswordViewController: UIViewController {
 
@@ -21,6 +24,7 @@ class ChangePasswordViewController: UIViewController {
     let passwordTextField = {
         let textField = TextFieldWithPadding()
         textField.placeholder = "Сіздің құпия сөзіңіз"
+        textField.isSecureTextEntry = true
         textField.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
         textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
         textField.layer.borderWidth = 1.0
@@ -39,6 +43,7 @@ class ChangePasswordViewController: UIViewController {
     let showPasswordButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "showPassword"), for: .normal)
+        button.addTarget(self, action: #selector(showPasswordButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -55,6 +60,7 @@ class ChangePasswordViewController: UIViewController {
     let repeatPasswordTextField = {
         let textField = TextFieldWithPadding()
         textField.placeholder = "Сіздің құпия сөзіңіз"
+        textField.isSecureTextEntry = true
         textField.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
         textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
         textField.layer.borderWidth = 1.0
@@ -73,6 +79,7 @@ class ChangePasswordViewController: UIViewController {
     let repeatShowPasswordButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "showPassword"), for: .normal)
+        button.addTarget(self, action: #selector(repeatShowPasswordTapped), for: .touchUpInside)
         
         return button
     }()
@@ -92,6 +99,66 @@ class ChangePasswordViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         setupUI()
+    }
+    
+    func localizeLanguage() {
+        passwordTextField.placeholder = "USER_PASSWORD_CHANGE".localized()
+        repeatPasswordTextField.placeholder = "USER_PASSWORD_CHANGE".localized()
+        saveChangesButton.setTitle("US_INFO_SAVE_BUTTON".localized(), for: .normal)
+        passwordLabel.text = "CHANGE_PASSWORD_LABEL".localized()
+        repeatPasswordLabel.text = "REPEAT_PASSWORD_LABEL".localized()
+        navigationItem.title = "CHANGE_PASSWORD_NAVIGATION".localized()
+    }
+    
+    @objc func showPasswordButtonTapped() {
+        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    }
+    
+    @objc func repeatShowPasswordTapped() {
+        repeatPasswordTextField.isSecureTextEntry = !repeatPasswordTextField.isSecureTextEntry
+    }
+    
+    @objc func saveChangesButtonTapped() {
+        let newPassword = passwordTextField.text!
+        let repeatPassword = repeatPasswordTextField.text!
+        
+        if  newPassword != repeatPassword {
+            SVProgressHUD.showError(withStatus: "Пароли должны совпадать!")
+            return
+        }
+        SVProgressHUD.show()
+        
+        let headers: HTTPHeaders = ["Authorization" : "Bearer \(Storage.sharedInstance.accessToken)"]
+            let parameters = ["password": newPassword]
+            AF.request(Urls.CHANGE_PASSWORD, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { response in
+                SVProgressHUD.dismiss()
+                var resultString = ""
+                if let data = response.data {
+                    resultString = String(data: data, encoding: .utf8)!
+                    print(resultString)
+                }
+                if response.response?.statusCode == 200 {
+                    let json = JSON(response.data!)
+                    print("JSON: \(json)")
+                    if let token = json["accessToken"].string {
+                        Storage.sharedInstance.accessToken = token
+                        UserDefaults.standard.set(token, forKey: "accessToken")
+                        self.popViewController()
+                    } else {
+                        SVProgressHUD.showError(withStatus: "CONNECTION_ERROR".localized())
+                    }
+                } else {
+                    var ErrorString = "CONNECTION_ERROR".localized()
+                    if let sCode = response.response?.statusCode {
+                        ErrorString = ErrorString + "\(sCode)"
+                    }
+                    ErrorString = ErrorString + "\(resultString)"
+                    SVProgressHUD.showError(withStatus: "\(ErrorString)")
+                }
+            }
+        }
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
     
     func setupUI() {

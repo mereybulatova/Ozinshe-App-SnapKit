@@ -7,13 +7,16 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class GenreTableViewCell: UITableViewCell {
 
    let identifier = "GenreCell"
     
+    var mainMovie = MainMovies()
+    
     let genreCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = TopAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
@@ -52,6 +55,13 @@ class GenreTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(mainMovie: MainMovies) {
+        
+        self.mainMovie = mainMovie
+        
+        genreCollection.reloadData()
+    }
+    
     func setupUI() {
         contentView.addSubview(genreCollection)
         contentView.addSubview(titleLabel)
@@ -76,13 +86,33 @@ class GenreTableViewCell: UITableViewCell {
 extension GenreTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if mainMovie.cellType == .ageCategory {
+            return mainMovie.categoryAges.count
+        }
+        return mainMovie.genres.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenreCollectionCell", for: indexPath) as! GenreCollectionViewCell
         
+        let transformer = SDImageResizingTransformer(size: CGSize(width: 184, height: 112), scaleMode: .aspectFill)
+        
+        cell.image.layer.cornerRadius = 8
+        
+        //movieNameLabel
+       
+        if mainMovie.cellType == .ageCategory {
+            cell.image.sd_setImage(with: URL(string: mainMovie.categoryAges[indexPath.row].link), placeholderImage: nil, context: [.imageTransformer: transformer])
+            cell.titleLabel.text = mainMovie.categoryAges[indexPath.row].name
+        } else {
+            cell.image.sd_setImage(with: URL(string: mainMovie.genres[indexPath.row].link), placeholderImage: nil, context: [.imageTransformer: transformer])
+            titleLabel.text = mainMovie.genres[indexPath.row].name
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }

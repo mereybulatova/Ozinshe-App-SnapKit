@@ -28,7 +28,6 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
-        
         return attributes
     }
 }
@@ -49,7 +48,6 @@ class SearchViewController: UIViewController {
         
         return searchTF
     }()
-    
         let exitButton = {
         let exitBut = UIButton()
         
@@ -78,7 +76,7 @@ class SearchViewController: UIViewController {
         return label
     }()
     
-        let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 16.0, left: 24.0, bottom: 16.0, right: 24.0)
         layout.minimumLineSpacing = 16
@@ -120,7 +118,6 @@ class SearchViewController: UIViewController {
         
         //MARK: - Constraints
         addViews()
-        
     }
     
     func hideKeyboardWhenTappedAround() {
@@ -162,7 +159,6 @@ class SearchViewController: UIViewController {
             make.right.equalToSuperview().inset(24)
             make.width.equalTo(56)
             make.height.equalTo(56)
-            
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -181,7 +177,6 @@ class SearchViewController: UIViewController {
             make.right.left.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(collectionView)
             make.top.equalTo(titleLabel.snp.bottom).inset(10)
-            
         }
     }
 }

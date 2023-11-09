@@ -19,6 +19,19 @@
 		C40670EC2AF97273008456B7 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670EB2AF97273008456B7 /* UserInfoViewController.swift */; };
 		C40670EE2AF97A19008456B7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670ED2AF97A19008456B7 /* ChangePasswordViewController.swift */; };
 		C40670F02AF98129008456B7 /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670EF2AF98129008456B7 /* LogOutViewController.swift */; };
+		C40670F22AFA9465008456B7 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F12AFA9465008456B7 /* LanguageViewController.swift */; };
+		C40670F42AFA9B39008456B7 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F32AFA9B39008456B7 /* LanguageTableViewCell.swift */; };
+		C40670F62AFAA345008456B7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F52AFAA344008456B7 /* OnboardingViewController.swift */; };
+		C40670FA2AFAC4A0008456B7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F92AFAC4A0008456B7 /* OnboardingView.swift */; };
+		C40670FD2AFB0285008456B7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670FC2AFB0285008456B7 /* Movie.swift */; };
+		C40670FF2AFB02B6008456B7 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670FE2AFB02B6008456B7 /* Screenshot.swift */; };
+		C40671012AFB02D7008456B7 /* CategoryAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671002AFB02D7008456B7 /* CategoryAge.swift */; };
+		C40671032AFB02EF008456B7 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671022AFB02EF008456B7 /* Genre.swift */; };
+		C40671052AFB02FF008456B7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671042AFB02FF008456B7 /* Category.swift */; };
+		C40671072AFB0317008456B7 /* MainMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671062AFB0317008456B7 /* MainMovies.swift */; };
+		C40671092AFB0330008456B7 /* BannerMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671082AFB0330008456B7 /* BannerMovie.swift */; };
+		C406710B2AFB0355008456B7 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406710A2AFB0355008456B7 /* Season.swift */; };
+		C406710D2AFB05CB008456B7 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406710C2AFB05CB008456B7 /* CategoryTableViewController.swift */; };
 		C479F1C62AF010C100C6D84C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1C52AF010C100C6D84C /* AppDelegate.swift */; };
 		C479F1C82AF010C100C6D84C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1C72AF010C100C6D84C /* SceneDelegate.swift */; };
 		C479F1CF2AF010C200C6D84C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C479F1CE2AF010C200C6D84C /* Assets.xcassets */; };
@@ -31,7 +44,6 @@
 		C479F1FB2AF0521C00C6D84C /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1FA2AF0521C00C6D84C /* Urls.swift */; };
 		C479F1FD2AF0525100C6D84C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1FC2AF0525100C6D84C /* Storage.swift */; };
 		C479F2022AF055B300C6D84C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C479F2042AF055B300C6D84C /* Localizable.strings */; };
-		C479F2082AF2648000C6D84C /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F2072AF2648000C6D84C /* AppView.swift */; };
 		C479F20D2AF268B700C6D84C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F20C2AF268B700C6D84C /* SignInViewController.swift */; };
 		C479F2142AF2B47700C6D84C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F2132AF2B47700C6D84C /* TabBarController.swift */; };
 		C479F2162AF2B50A00C6D84C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F2152AF2B50A00C6D84C /* HomeViewController.swift */; };
@@ -63,6 +75,19 @@
 		C40670EB2AF97273008456B7 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		C40670ED2AF97A19008456B7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C40670EF2AF98129008456B7 /* LogOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
+		C40670F12AFA9465008456B7 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		C40670F32AFA9B39008456B7 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
+		C40670F52AFAA344008456B7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C40670F92AFAC4A0008456B7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		C40670FC2AFB0285008456B7 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		C40670FE2AFB02B6008456B7 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
+		C40671002AFB02D7008456B7 /* CategoryAge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAge.swift; sourceTree = "<group>"; };
+		C40671022AFB02EF008456B7 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		C40671042AFB02FF008456B7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		C40671062AFB0317008456B7 /* MainMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovies.swift; sourceTree = "<group>"; };
+		C40671082AFB0330008456B7 /* BannerMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMovie.swift; sourceTree = "<group>"; };
+		C406710A2AFB0355008456B7 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
+		C406710C2AFB05CB008456B7 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		C479F1C22AF010C100C6D84C /* Ozinshe App Snapkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ozinshe App Snapkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C479F1C52AF010C100C6D84C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C479F1C72AF010C100C6D84C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +106,6 @@
 		C479F2032AF055B300C6D84C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C479F2052AF055B400C6D84C /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C479F2062AF055B400C6D84C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C479F2072AF2648000C6D84C /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		C479F20C2AF268B700C6D84C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C479F2132AF2B47700C6D84C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		C479F2152AF2B50A00C6D84C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +182,29 @@
 			path = PlayerViewController;
 			sourceTree = "<group>";
 		};
+		C40670FB2AFB0260008456B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C40670FC2AFB0285008456B7 /* Movie.swift */,
+				C40670FE2AFB02B6008456B7 /* Screenshot.swift */,
+				C40671002AFB02D7008456B7 /* CategoryAge.swift */,
+				C40671022AFB02EF008456B7 /* Genre.swift */,
+				C40671042AFB02FF008456B7 /* Category.swift */,
+				C40671062AFB0317008456B7 /* MainMovies.swift */,
+				C40671082AFB0330008456B7 /* BannerMovie.swift */,
+				C406710A2AFB0355008456B7 /* Season.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C406710E2AFB0EC6008456B7 /* MovieCell */ = {
+			isa = PBXGroup;
+			children = (
+				C479F21D2AF2CFCF00C6D84C /* MovieTableViewCell.swift */,
+			);
+			path = MovieCell;
+			sourceTree = "<group>";
+		};
 		C479F1B92AF010C100C6D84C = {
 			isa = PBXGroup;
 			children = (
@@ -180,15 +227,15 @@
 		C479F1C42AF010C100C6D84C /* Ozinshe App Snapkit */ = {
 			isa = PBXGroup;
 			children = (
+				C406710E2AFB0EC6008456B7 /* MovieCell */,
+				C40670FB2AFB0260008456B7 /* Model */,
 				C479F2122AF2B45800C6D84C /* Controllers */,
 				C479F20E2AF2B35200C6D84C /* SignInController */,
 				C479F2102AF2B37200C6D84C /* Extensions */,
 				C479F20F2AF2B36A00C6D84C /* Static */,
 				C479F1DD2AF0148000C6D84C /* Fonts */,
 				C479F2112AF2B3B600C6D84C /* Shared Instance */,
-				C479F2092AF2687900C6D84C /* ViewModel */,
 				C479F2132AF2B47700C6D84C /* TabBarController.swift */,
-				C479F21D2AF2CFCF00C6D84C /* MovieTableViewCell.swift */,
 				C479F1D92AF012FF00C6D84C /* Supporting */,
 			);
 			path = "Ozinshe App Snapkit";
@@ -216,19 +263,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		C479F2092AF2687900C6D84C /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				C479F2072AF2648000C6D84C /* AppView.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		C479F20E2AF2B35200C6D84C /* SignInController */ = {
 			isa = PBXGroup;
 			children = (
 				C479F1F82AF040CE00C6D84C /* SignUpViewController.swift */,
 				C479F20C2AF268B700C6D84C /* SignInViewController.swift */,
+				C40670F52AFAA344008456B7 /* OnboardingViewController.swift */,
+				C40670F92AFAC4A0008456B7 /* OnboardingView.swift */,
 			);
 			path = SignInController;
 			sourceTree = "<group>";
@@ -274,6 +315,7 @@
 			children = (
 				C479F2172AF2B53900C6D84C /* SearchViewController.swift */,
 				C479F2202AF535B200C6D84C /* SearchCollectionViewCell.swift */,
+				C406710C2AFB05CB008456B7 /* CategoryTableViewController.swift */,
 			);
 			path = SearchController;
 			sourceTree = "<group>";
@@ -304,6 +346,8 @@
 				C40670EB2AF97273008456B7 /* UserInfoViewController.swift */,
 				C40670ED2AF97A19008456B7 /* ChangePasswordViewController.swift */,
 				C40670EF2AF98129008456B7 /* LogOutViewController.swift */,
+				C40670F12AFA9465008456B7 /* LanguageViewController.swift */,
+				C40670F32AFA9B39008456B7 /* LanguageTableViewCell.swift */,
 			);
 			path = ProfileController;
 			sourceTree = "<group>";
@@ -445,17 +489,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40670FD2AFB0285008456B7 /* Movie.swift in Sources */,
 				C40670EE2AF97A19008456B7 /* ChangePasswordViewController.swift in Sources */,
 				C4CA3C812AF594B90003533D /* HistoryTableViewCell.swift in Sources */,
 				C40670EC2AF97273008456B7 /* UserInfoViewController.swift in Sources */,
 				C479F1FD2AF0525100C6D84C /* Storage.swift in Sources */,
+				C40671072AFB0317008456B7 /* MainMovies.swift in Sources */,
 				C479F2182AF2B53900C6D84C /* SearchViewController.swift in Sources */,
+				C40670F22AFA9465008456B7 /* LanguageViewController.swift in Sources */,
 				C4CA3C832AF59ADE0003533D /* HistoryCollectionViewCell.swift in Sources */,
 				C479F21E2AF2CFCF00C6D84C /* MovieTableViewCell.swift in Sources */,
 				C479F1F72AF02D7700C6D84C /* TextFieldWithPadding.swift in Sources */,
 				C479F20D2AF268B700C6D84C /* SignInViewController.swift in Sources */,
 				C40670BF2AF8091E008456B7 /* SimilarCollectionViewCell.swift in Sources */,
 				C4CA3C852AF5B6C50003533D /* MainCollectionViewCell.swift in Sources */,
+				C40671092AFB0330008456B7 /* BannerMovie.swift in Sources */,
+				C406710D2AFB05CB008456B7 /* CategoryTableViewController.swift in Sources */,
 				C4CA3C8B2AF5C2D50003533D /* GenreCollectionViewCell.swift in Sources */,
 				C479F2142AF2B47700C6D84C /* TabBarController.swift in Sources */,
 				C40670E42AF851D0008456B7 /* SeasonsAndSeriesCollectionViewCell.swift in Sources */,
@@ -465,20 +514,27 @@
 				C40670E62AF85830008456B7 /* SeasonSeriesTableViewCell.swift in Sources */,
 				C40670B92AF6D603008456B7 /* MovieInfoController.swift in Sources */,
 				C479F1C62AF010C100C6D84C /* AppDelegate.swift in Sources */,
+				C40670F42AFA9B39008456B7 /* LanguageTableViewCell.swift in Sources */,
 				C479F2162AF2B50A00C6D84C /* HomeViewController.swift in Sources */,
-				C479F2082AF2648000C6D84C /* AppView.swift in Sources */,
+				C40670FA2AFAC4A0008456B7 /* OnboardingView.swift in Sources */,
 				C479F1FB2AF0521C00C6D84C /* Urls.swift in Sources */,
 				C479F1C82AF010C100C6D84C /* SceneDelegate.swift in Sources */,
 				C40670F02AF98129008456B7 /* LogOutViewController.swift in Sources */,
+				C40670FF2AFB02B6008456B7 /* Screenshot.swift in Sources */,
 				C479F21C2AF2B55C00C6D84C /* ProfileViewController.swift in Sources */,
 				C4CA3C892AF5C2C70003533D /* GenreTableViewCell.swift in Sources */,
 				C479F21A2AF2B54D00C6D84C /* FavoriteViewController.swift in Sources */,
 				C479F1F92AF040CE00C6D84C /* SignUpViewController.swift in Sources */,
+				C40671032AFB02EF008456B7 /* Genre.swift in Sources */,
+				C40670F62AFAA345008456B7 /* OnboardingViewController.swift in Sources */,
+				C406710B2AFB0355008456B7 /* Season.swift in Sources */,
 				C40670E22AF84EF6008456B7 /* SeasonsAndSeriesViewController.swift in Sources */,
 				C40670EA2AF85F64008456B7 /* MoviePlayerViewController.swift in Sources */,
 				C40670BB2AF6DF13008456B7 /* GradientView.swift in Sources */,
 				C479F2212AF535B200C6D84C /* SearchCollectionViewCell.swift in Sources */,
 				C4CA3C7F2AF571D40003533D /* BannerCollectionViewCell.swift in Sources */,
+				C40671012AFB02D7008456B7 /* CategoryAge.swift in Sources */,
+				C40671052AFB02FF008456B7 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

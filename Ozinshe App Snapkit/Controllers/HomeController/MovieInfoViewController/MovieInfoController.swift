@@ -7,226 +7,394 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import SVProgressHUD
+import SwiftyJSON
+import SDWebImage
 
 class MovieInfoController: UIViewController {
     
+    var movie = Movie()
+    
+    var similarMovies:[Movie] = []
+    
+    let movieScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.contentMode = .scaleToFill
+        scrollView.bounces = false
+        scrollView.backgroundColor = .systemBackground
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    let movieContentView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+   
+    let posterImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "")
+        return iv
+    }()
+    
+    let arrowButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "backArrow"), for: .normal)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    let playButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "playButton"), for: .normal)
+        button.addTarget(self, action: #selector(playMovieTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    let shareButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "shareButton"), for: .normal)
+        button.addTarget(self, action: #selector(shareMovie), for: .touchUpInside)
+        return button
+    }()
+    
+    let favoriteButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "favoriteButton"), for: .normal)
+        button.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
+        return button
+    }()
+    
+    let favoriteButtonLabel = {
+        let label = UILabel()
+        label.text = "Тізімге қосу"
+        label.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
+        label.textColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
+        return label
+    }()
+    
+    let shareButtonLabel = {
+        let label = UILabel()
+        label.text = "Бөлісу"
+        label.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
+        label.textColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
+        return label
+    }()
+
+    let backgroundView = {
+        let viewBack = UIView()
+        viewBack.contentMode = .scaleToFill
+        viewBack.layer.cornerRadius = 32
+        viewBack.backgroundColor = .systemBackground
+        viewBack.clipsToBounds = true
+        viewBack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        return viewBack
+    }()
+    
+    let nameLabel = {
+        let label = UILabel()
+        label.text = "Айдар"
+        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        return label
+    }()
+    
+    let detailLabel = {
+        let label = UILabel()
+        label.text = "2020 • Телехикая • 5 сезон, 46 серия, 7 мин"
+        label.textColor = UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
+        return label
+    }()
+    
+    let grayView1 = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
+        return view
+    }()
+    
+    let descriptionLabel = {
+        let label = UILabel()
+        label.text = "Шытырман оқиғалы мультсериал Елбасының «Ұлы даланың жеті қыры» бағдарламасы аясында жүзеге асырылған. Мақалада қызғалдақтардың отаны Қазақстан екені айтылады."
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        label.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1.00)
+        label.numberOfLines = 20
+        return label
+    }()
+    
+    let fullDescriptionButton = {
+        let button = UIButton()
+        button.setTitle("Толығырақ", for: .normal)
+        button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
+        button.addTarget(self, action: #selector(fullDescription), for: .touchUpInside)
+        return button
+    }()
+    
+    let directorLabel = {
+        let label = UILabel()
+        label.text = "Режиссер:"
+        label.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        return label
+    }()
+    
+    let producerLabel = {
+        let label = UILabel()
+        label.text = "Продюсер:"
+        label.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        return label
+    }()
+    
+    let directorNameLabel = {
+        let label = UILabel()
+        label.text = "Бақдәулет Әлімбеков"
+        label.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        return label
+    }()
+    
+    let producerNameLabel = {
+        let label = UILabel()
+        label.text = "Сандуғаш Кенжебаева"
+        label.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
+        return label
+    }()
+    
+    let grayView2 = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
+        return view
+    }()
+        
+    let seasonsLabel = {
+        let label = UILabel()
+        label.text = "Бөлімдер"
+        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        return label
+    }()
+    
+    let seasonsButton = {
+        let button = UIButton()
+        button.setTitle("5 сезон, 46 серия", for: .normal)
+        button.contentHorizontalAlignment = .right
+        button.setTitleColor(UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
+        return button
+    }()
+    
+    let arrowImage = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "arrowImage")
+        return iv
+    }()
+    
+    let screenshotsLabel = {
+        let label = UILabel()
+        label.text = "Скриншоттар"
+        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        return label
+    }()
+    
+    let similarMoviesLabel = {
+        let label = UILabel()
+        label.text = "Ұқсас телехикаялар"
+        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        return label
+    }()
+    
+    //MARK: - Collection View
+    let screenshotsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 24.0, bottom: 0.0, right: 24.0)
+        layout.itemSize = CGSize(width: 184, height: 112)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(ScreenshotCollectionViewCell.self, forCellWithReuseIdentifier: "ScreenshotCell")
+
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .systemBackground
+        
+        return collectionView
+    }()
+    
+    let similarCollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 24.0, bottom: 0.0, right: 24.0)
+        layout.itemSize = CGSize(width: 112, height: 208)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 12
+        layout.minimumInteritemSpacing = 12
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(SimilarCollectionViewCell.self, forCellWithReuseIdentifier: "SimilarCell")
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        collectionView.backgroundColor = .systemBackground
+        
+        return collectionView
+    }()
+
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        view.addSubview(movieScrollView)
+        setupUI()
+        setData()
+        buttonsSettings()
+        downloadSimilar()
         
-        movieScrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.bottom.right.left.equalTo(view.safeAreaLayoutGuide)
-        }
+        screenshotsCollectionView.delegate = self
+        screenshotsCollectionView.dataSource = self
         
+        similarCollectionView.delegate = self
+        similarCollectionView.dataSource = self
     }
     
-    var movieScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.indicatorStyle = .default
-            scrollView.contentMode = .scaleToFill
-            scrollView.bounces = false
-            scrollView.contentInsetAdjustmentBehavior = .never
-            scrollView.bouncesZoom = false
-        
-    //MARK: - UI View
-    let movieContentView = {
-        let view = UIView()
-        view.contentMode = .scaleToFill
-        view.backgroundColor = .systemBackground
-   
-        let posterImageView = UIImageView()
-        posterImageView.image = UIImage(named: "posterImage")
-    
-        let arrowButton = UIButton()
-        arrowButton.setImage(UIImage(named: "backArrow"), for: .normal)
-    
-        let playButton = UIButton()
-        playButton.setImage(UIImage(named: "playButton"), for: .normal)
-    
-        let shareButton = UIButton()
-        shareButton.setImage(UIImage(named: "shareButton"), for: .normal)
-    
-        let favoriteButton = UIButton()
-        favoriteButton.setImage(UIImage(named: "favoriteButton"), for: .normal)
-    
-        let favoriteButtonLabel = UILabel()
-        favoriteButtonLabel.text = "Тізімге қосу"
-        favoriteButtonLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        favoriteButtonLabel.textColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
-    
-        let shareButtonLabel = UILabel()
-        shareButtonLabel.text = "Бөлісу"
-        shareButtonLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        shareButtonLabel.textColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
-    
-        //MARK: - Background View
-    let backgroundView = {
-        let view = UIView()
-        view.contentMode = .scaleToFill
-        view.layer.cornerRadius = 32
-        view.clipsToBounds = true
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-        let nameLabel = UILabel()
-        nameLabel.text = "Айдар"
-        nameLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
-        nameLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        
-        let detailLabel = UILabel()
-        detailLabel.text = "2020 • Телехикая • 5 сезон, 46 серия, 7 мин"
-        detailLabel.textColor = UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1)
-        detailLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        
-        let grayView1 = UIView()
-        grayView1.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
-        
-        let descriptionLabel = UILabel()
-        descriptionLabel.text = "Шытырман оқиғалы мультсериал Елбасының «Ұлы даланың жеті қыры» бағдарламасы аясында жүзеге асырылған. Мақалада қызғалдақтардың отаны Қазақстан екені айтылады."
-        descriptionLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        descriptionLabel.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1.00)
-        descriptionLabel.numberOfLines = 4
-        
-        let fullDescriptionButton = UIButton()
-        fullDescriptionButton.setTitle("Толығырақ", for: .normal)
-        fullDescriptionButton.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for: .normal)
-        fullDescriptionButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
-        
-        let directorLabel = UILabel()
-        directorLabel.text = "Режиссер:"
-        directorLabel.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
-        directorLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        
-        let producerLabel = UILabel()
-        producerLabel.text = "Продюсер:"
-        producerLabel.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
-        producerLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        
-        let directorNameLabel = UILabel()
-        directorNameLabel.text = "Бақдәулет Әлімбеков"
-        directorNameLabel.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
-        directorNameLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        
-        let producerNameLabel = UILabel()
-        producerNameLabel.text = "Сандуғаш Кенжебаева"
-        producerNameLabel.textColor = UIColor(red: 0.294, green: 0.333, blue: 0.388, alpha: 1)
-        producerNameLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        
-        let grayView2 = UIView()
-        grayView2.backgroundColor = UIColor(red: 0.82, green: 0.84, blue: 0.86, alpha: 1)
-        
-        let seasonsLabel = UILabel()
-        seasonsLabel.text = "Бөлімдер"
-        seasonsLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
-        seasonsLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        
-        let seasonsButton = UIButton()
-        seasonsButton.setTitle("5 сезон, 46 серия", for: .normal)
-        seasonsButton.setTitleColor(UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1), for: .normal)
-        seasonsButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        
-        let arrowImage = UIImageView()
-        arrowImage.image = UIImage(named: "arrowImage")
-        
-        let screenshotsLabel = UILabel()
-        screenshotsLabel.text = "Скриншоттар"
-        screenshotsLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
-        screenshotsLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        
-        lazy var screenshotsCollectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.sectionInset = UIEdgeInsets(top: 0.0, left: 24.0, bottom: 0.0, right: 24.0)
-            layout.itemSize = CGSize(width: 184, height: 112)
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 16
-            layout.minimumInteritemSpacing = 16
-            
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            collectionView.register(ScreenshotCollectionViewCell.self, forCellWithReuseIdentifier: "ScreenshotCell")
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+            decriptionNumber()
+        }
 
-            collectionView.showsHorizontalScrollIndicator = false
-            collectionView.backgroundColor = .systemBackground
-            
-            return collectionView
-        }()
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func decriptionNumber() {
+        if descriptionLabel.numberOfLines > 4 {
+            descriptionLabel.numberOfLines = 4
+        }
+    }
+    
+    func setupUI() {
+        view.backgroundColor = .systemBackground
         
-        let similarMoviesLabel = UILabel()
-        similarMoviesLabel.text = "Ұқсас телехикаялар"
-        similarMoviesLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
-        similarMoviesLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        view.addSubview(movieScrollView)
+        movieScrollView.addSubview(movieContentView)
         
-        let similarCollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.sectionInset = UIEdgeInsets(top: 0.0, left: 24.0, bottom: 0.0, right: 24.0)
-            layout.itemSize = CGSize(width: 112, height: 208)
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 12
-            layout.minimumInteritemSpacing = 12
-            
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            collectionView.register(SimilarCollectionViewCell.self, forCellWithReuseIdentifier: "SimilarCell")
-            collectionView.showsHorizontalScrollIndicator = false
-            
-            collectionView.backgroundColor = .systemBackground
-            
-            return collectionView
-        }()
+        movieContentView.addSubview(posterImageView)
+        movieContentView.addSubview(arrowButton)
+        movieContentView.addSubview(favoriteButton)
+        movieContentView.addSubview(shareButton)
+        movieContentView.addSubview(playButton)
+        movieContentView.addSubview(favoriteButtonLabel)
+        movieContentView.addSubview(shareButtonLabel)
+        movieContentView.addSubview(backgroundView)
         
-        view.addSubview(nameLabel)
-        view.addSubview(detailLabel)
-        view.addSubview(grayView1)
-        view.addSubview(descriptionLabel)
-        view.addSubview(fullDescriptionButton)
-        view.addSubview(directorLabel)
-        view.addSubview(producerLabel)
-        view.addSubview(directorNameLabel)
-        view.addSubview(producerNameLabel)
-        view.addSubview(grayView2)
-        view.addSubview(seasonsLabel)
-        view.addSubview(seasonsButton)
-        view.addSubview(screenshotsCollectionView)
-        view.addSubview(arrowImage)
-        view.addSubview(screenshotsLabel)
+        backgroundView.addSubview(nameLabel)
+        backgroundView.addSubview(detailLabel)
+        backgroundView.addSubview(grayView1)
+        backgroundView.addSubview(descriptionLabel)
+        backgroundView.addSubview(fullDescriptionButton)
+        backgroundView.addSubview(directorLabel)
+        backgroundView.addSubview(producerLabel)
+        backgroundView.addSubview(directorNameLabel)
+        backgroundView.addSubview(producerNameLabel)
+        backgroundView.addSubview(grayView2)
+        backgroundView.addSubview(seasonsLabel)
+        backgroundView.addSubview(seasonsButton)
+        backgroundView.addSubview(arrowImage)
+        backgroundView.addSubview(screenshotsLabel)
+        backgroundView.addSubview(screenshotsCollectionView)
+        backgroundView.addSubview(similarMoviesLabel)
+        backgroundView.addSubview(similarCollectionView)
         
+        movieScrollView.snp.makeConstraints { make in
+            make.right.left.bottom.top.equalToSuperview()
+        }
+        
+        movieContentView.snp.makeConstraints { make in
+            make.top.bottom.right.left.equalToSuperview()        }
+        
+        posterImageView.snp.makeConstraints { make in
+            make.right.left.top.equalToSuperview()
+            make.height.equalTo(364)
+        }
+        
+        arrowButton.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview().inset(54)
+            make.size.equalTo(CGSize(width: 95, height: 100))
+        }
+        
+        favoriteButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(37)
+            make.size.equalTo(CGSize(width: 100, height: 100))
+            make.top.equalToSuperview().inset(228)
+        }
+        
+        favoriteButtonLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(favoriteButton)
+            make.top.equalTo(favoriteButton.snp.top).offset(46)
+        }
+        
+        shareButton.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(37)
+            make.size.equalTo(CGSize(width: 100, height: 100))
+            make.top.equalToSuperview().inset(228)
+        }
+        
+        shareButtonLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(shareButton)
+            make.top.equalTo(shareButton.snp.top).offset(46)
+        }
+        
+        playButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(198)
+            make.size.equalTo(CGSize(width: 132, height: 132))
+            make.centerX.equalToSuperview()
+        }
+        
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(324)
+            make.right.left.bottom.equalToSuperview()
+        }
+        
+        //MARK: - Background View Constraints
         
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(24)
+            make.left.top.equalToSuperview().inset(24)
         }
         
         detailLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(24)
+            make.left.equalToSuperview().inset(24)
             make.top.equalTo(nameLabel.snp.bottom).offset(8)
         }
         
         grayView1.snp.makeConstraints { make in
-            make.top.equalTo(detailLabel.snp.bottom).offset(24)
             make.right.left.equalToSuperview().inset(24)
             make.height.equalTo(1)
+            make.top.equalTo(detailLabel.snp.bottom).offset(24)
         }
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(grayView1.snp.bottom).offset(24)
             make.right.left.equalToSuperview().inset(24)
+            make.width.equalTo(345)
         }
         
         fullDescriptionButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(16)
             make.left.equalToSuperview().inset(24)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(16)
         }
         
         directorLabel.snp.makeConstraints { make in
             make.top.equalTo(fullDescriptionButton.snp.bottom).offset(24)
             make.left.equalToSuperview().inset(24)
-            make.height.equalTo(17)
-        }
-        
-        directorNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(fullDescriptionButton.snp.bottom).offset(24)
-            make.left.equalToSuperview().inset(113)
-            make.right.equalToSuperview().inset(24)
         }
         
         producerLabel.snp.makeConstraints { make in
@@ -234,26 +402,32 @@ class MovieInfoController: UIViewController {
             make.left.equalToSuperview().inset(24)
         }
         
-        producerNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(directorNameLabel.snp.bottom).offset(8)
+        directorNameLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(113)
             make.right.equalToSuperview().inset(24)
+            make.top.equalTo(fullDescriptionButton.snp.bottom).offset(24)
         }
         
+        producerNameLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(113)
+            make.right.equalToSuperview().inset(24)
+            make.top.equalTo(directorNameLabel.snp.bottom).offset(8)
+        }
+
         grayView2.snp.makeConstraints { make in
-            make.top.equalTo(producerNameLabel.snp.bottom).offset(24)
             make.right.left.equalToSuperview().inset(24)
             make.height.equalTo(1)
+            make.top.equalTo(producerNameLabel.snp.bottom).offset(24)
         }
         
         seasonsLabel.snp.makeConstraints { make in
-            make.top.equalTo(grayView2.snp.bottom).offset(24)
             make.left.equalToSuperview().inset(24)
+            make.top.equalTo(grayView2.snp.bottom).offset(24)
         }
         
         seasonsButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(48)
             make.left.equalTo(seasonsLabel.snp.right)
+            make.right.equalToSuperview().inset(45)
             make.centerY.equalTo(seasonsLabel)
         }
         
@@ -265,101 +439,253 @@ class MovieInfoController: UIViewController {
         
         screenshotsLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
-            make.top.equalTo(seasonsLabel.snp.bottom).offset(150)
+            make.top.equalTo(seasonsLabel.snp.bottom).offset(32)
         }
         
         screenshotsCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(screenshotsLabel.snp.bottom).inset(16)
-            make.right.left.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.top.equalTo(screenshotsLabel.snp.bottom).offset(16)
+            make.height.equalTo(112)
         }
-       
-        return view
-    }()
-            
-            //MARK: - Add Subviews
-            view.addSubview(posterImageView)
-            view.addSubview(arrowButton)
-            view.addSubview(favoriteButton)
-            view.addSubview(shareButton)
-            view.addSubview(playButton)
-            view.addSubview(favoriteButtonLabel)
-            view.addSubview(shareButtonLabel)
-            view.addSubview(backgroundView)
-            
-            //MARK: - Constraints
-            
-            posterImageView.snp.makeConstraints { make in
-                make.top.right.left.equalToSuperview()
-                make.height.equalTo(330)
-                make.width.equalTo(393)
-            }
-            
-            arrowButton.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(54)
-                make.left.equalToSuperview()
-                make.size.equalTo(CGSize(width: 95, height: 100))
-            }
-            
-            favoriteButton.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(228)
-                make.size.equalTo(CGSize(width: 100, height: 100))
-                make.left.equalToSuperview().inset(37)
-            }
-            
-            shareButton.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(228)
-                make.size.equalTo(CGSize(width: 100, height: 100))
-                make.right.equalToSuperview().inset(37)
-            }
-            
-            playButton.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(198)
-                make.size.equalTo(CGSize(width: 132, height: 132))
-                make.centerX.equalToSuperview()
-            }
-            
-            favoriteButtonLabel.snp.makeConstraints { make in
-                make.top.equalTo(favoriteButton.snp.top).inset(46)
-                make.centerX.equalTo(favoriteButton)
-            }
-            
-            shareButtonLabel.snp.makeConstraints { make in
-                make.top.equalTo(shareButton.snp.top).inset(46)
-                make.centerX.equalTo(shareButton)
-            }
-            
-            backgroundView.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(324)
-                make.bottom.right.left.equalToSuperview()
-                make.height.equalTo(1150)
-            }
-           
-        return view
-    }()
-         
-        scrollView.addSubview(movieContentView)
         
-        movieContentView.snp.makeConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+        similarMoviesLabel.snp.makeConstraints { make in
+            make.top.equalTo(screenshotsCollectionView.snp.bottom).offset(32)
+            make.left.equalToSuperview().inset(24)
         }
-       
-        return scrollView
-    }()
+        
+        similarCollectionView.snp.makeConstraints { make in
+            make.right.left.equalToSuperview()
+            make.top.equalTo(similarMoviesLabel.snp.bottom).offset(16)
+            make.bottom.equalToSuperview().inset(45)
+            make.height.equalTo(220)
+        }
+    }
     
+    func buttonsSettings() {
+        if movie.movieType == "Movie" {
+            seasonsLabel.isHidden = true
+            seasonsButton.isHidden = true
+            arrowImage.isHidden = true
+        } else {
+            seasonsButton.setTitle("\(movie.seasonCount) сезон, \(movie.seriesCount) серия", for: .normal)
+        }
+        
+        if descriptionLabel.numberOfLines < 5 {
+            fullDescriptionButton.isHidden = true
+        }
+        
+        if movie.favorite {
+            favoriteButton.setImage(UIImage(named: "favoriteSelectedButton"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "favoriteButton"), for: .normal)
+        }
+    }
     
+        func setData() {
+            posterImageView.sd_setImage(with: URL(string: movie.poster_link), completed: nil)
+            
+            nameLabel.text = movie.name
+            detailLabel.text = "\(movie.year)"
+            
+            for item in movie.genres {
+                detailLabel.text = detailLabel.text! + " • " + item.name
+            }
+            descriptionLabel.text = movie.description
+            
+            directorNameLabel.text = movie.director
+            
+            producerNameLabel.text = movie.producer
+        }
+    
+    //MARK: - Localize elements
+    func localizeLanguage() {
+        shareButtonLabel.text = "SHARE_LABEL".localized()
+        favoriteButtonLabel.text = "ADD_TO_FAVORITE".localized()
+        fullDescriptionButton.setTitle("FULL_DESCRIPTION_BUTTON".localized(), for: .normal)
+        directorLabel.text = "DIRECTOR_LABEL".localized()
+        producerLabel.text = "PRODUCER_LABEL".localized()
+        seasonsLabel.text = "SERIES_LABEL".localized()
+        screenshotsLabel.text = "SCREENSHOT_LABEL".localized()
+        similarMoviesLabel.text = "SIMILAR_MOVIES_LABEL".localized()
+    }
+    
+    //MARK: - Add function
+    func downloadSimilar() {
+        SVProgressHUD.show()
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(Storage.sharedInstance.accessToken)"
+        ]
+        
+        AF.request(Urls.GET_SIMILAR + String(movie.id), method: .get, headers: headers).responseData { response in
+            
+            SVProgressHUD.dismiss()
+            var resultString = ""
+            if let data = response.data {
+                resultString = String(data: data, encoding: .utf8)!
+                print(resultString)
+            }
+            
+            if response.response?.statusCode == 200 {
+                let json = JSON(response.data!)
+                print("JSON: \(json)")
+                
+                if let array = json.array {
+                    for item in array {
+                        let movie = Movie(json: item)
+                        self.similarMovies.append(movie)
+                    }
+                    self.similarCollectionView.reloadData()
+                } else {
+                    SVProgressHUD.showError(withStatus: "CONNECTION_ERROR".localized())
+                }
+            } else {
+                var ErrorString = "CONNECTION_ERROR".localized()
+                if let sCode = response.response?.statusCode {
+                    ErrorString = ErrorString + " \(sCode)"
+                }
+                ErrorString = ErrorString + " \(resultString)"
+                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+            }
+        }
+    }
+    
+    //MARK: - objc function
+    @objc func backButtonTapped() {
+        let tabViewController = TabBarController()
+        
+        tabViewController.modalPresentationStyle = .fullScreen
+        self.present(tabViewController, animated: true, completion: nil)
+    }
+    
+    @objc func playMovieTapped() {
+        if movie.movieType == "MOVIE" {
+            let playerVC = MoviePlayerViewController()
+            
+            playerVC.video_link = movie.video_link
+            
+            playerVC.modalPresentationStyle = .fullScreen
+            self.present(playerVC, animated: true, completion: nil)
+        } else {
+            let seasonsVC = SeasonsAndSeriesViewController()
+            
+            seasonsVC.movie = movie
+            
+            seasonsVC.modalPresentationStyle = .fullScreen
+            self.present(seasonsVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func addToFavorite() {
+        var method = HTTPMethod.post
+        if movie.favorite {
+            method = .delete
+        }
+        
+        SVProgressHUD.show()
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(Storage.sharedInstance.accessToken)"
+        ]
+        
+        let parameters = ["movieId": movie.id] as [String : Any]
+        
+        AF.request(Urls.FAVORITE_URL, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { response in
+            
+            SVProgressHUD.dismiss()
+            var resultString = ""
+            if let data = response.data {
+                resultString = String(data: data, encoding: .utf8)!
+                print(resultString)
+            }
+            
+            if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+//                let json = JSON(response.data!)
+//                print("JSON: \(json)")
+                
+                self.movie.favorite.toggle()
+                
+                self.buttonsSettings()
+                
+            } else {
+                var ErrorString = "CONNECTION_ERROR".localized()
+                if let sCode = response.response?.statusCode {
+                    ErrorString = ErrorString + " \(sCode)"
+                }
+                ErrorString = ErrorString + " \(resultString)"
+                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+            }
+        }
+    }
+    
+    @objc func shareMovie() {
+        let text = "\(movie.name) \n\(movie.description)"
+        let image = posterImageView.image
+        let shareAll = [text, image!] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+  @objc func fullDescription() {
+        if descriptionLabel.numberOfLines > 4 {
+            descriptionLabel.numberOfLines = 4
+            fullDescriptionButton.setTitle("Толығырақ", for: .normal)
+        } else {
+            descriptionLabel.numberOfLines = 30
+            fullDescriptionButton.setTitle("Жасыру", for: .normal)
+        }
+    }
 }
 
-extension MovieInfoController: UICollectionViewDelegate, UICollectionViewDataSource {
+    //MARK: - Extension UICollectionViewDelegate
+    extension MovieInfoController: UICollectionViewDelegate, UICollectionViewDataSource {
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            if collectionView == self.similarCollectionView {
+                return similarMovies.count
+            }
+            return movie.screenshots.count
+        }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            if collectionView == self.similarCollectionView {
+                let similarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarCell", for: indexPath) as! SimilarCollectionViewCell
+                
+                let transformer = SDImageResizingTransformer(size: CGSize(width: 112, height: 164), scaleMode: .aspectFill)
+                
+                similarCell.imageVi.sd_setImage(with: URL(string: similarMovies[indexPath.row].poster_link), placeholderImage: nil, context: [.imageTransformer: transformer])
+                similarCell.imageVi.layer.cornerRadius = 8
+                
+                similarCell.movieNameLabel.text = similarMovies[indexPath.row].name
+                
+                if let genrename = similarMovies[indexPath.row].genres.first {
+                    similarCell.movieGenreNameLabel.text = genrename.name
+                } else {
+                    similarCell.movieGenreNameLabel.text = ""
+                }
+                return similarCell
+            }
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ScreenshotCell", for: indexPath) as! ScreenshotCollectionViewCell
+            
+            let transformer = SDImageResizingTransformer(size: CGSize(width: 184, height: 112), scaleMode: .aspectFill)
+            
+            cell.genreImage.layer.cornerRadius = 8
+            
+            cell.genreImage.sd_setImage(with: URL(string: movie.screenshots[indexPath.row].link), placeholderImage: nil, context: [.imageTransformer: transformer])
+            
+            return cell
+        }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ScreenshotCell", for: indexPath) as! ScreenshotCollectionViewCell
-        
-        return cell
-    }
-
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            if collectionView == self.similarCollectionView {
+                let movieinfoVC = MovieInfoController()
+                
+                movieinfoVC.movie  = similarMovies[indexPath.row]
+                navigationItem.title = ""
+                
+                navigationController?.show(movieinfoVC, sender: self)
+            }
+        }
 }

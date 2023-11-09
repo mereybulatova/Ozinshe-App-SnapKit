@@ -7,6 +7,7 @@
 
 import SnapKit
 import UIKit
+import SDWebImage
 
 class BannerCollectionViewCell: UICollectionViewCell {
     
@@ -42,27 +43,20 @@ class BannerCollectionViewCell: UICollectionViewCell {
     }()
     
     let genreNameView = {
-        
         let labelView = UIView()
-        let label = UILabel()
-        
-        labelView.addSubview(label)
-        
         labelView.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
         labelView.layer.cornerRadius = 8
         
+        return labelView
+    }()
+    
+    let genreNameLabel = {
+        let label = UILabel()
         label.text = "Телехикая"
         label.font = UIFont(name: "SFProDisplay-Regular", size: 12)
         label.textColor = .white
         
-        label.snp.makeConstraints { make in
-            make.top.equalTo(labelView.snp.top)
-            make.bottom.equalTo(labelView.snp.bottom)
-            make.right.equalToSuperview().inset(8)
-            make.left.equalToSuperview().inset(8)
-        }
-        
-        return labelView
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -75,6 +69,19 @@ class BannerCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setData(bannerMovie: BannerMovie) {
+        let transformer = SDImageResizingTransformer(size: CGSize(width: 300, height: 164), scaleMode: .aspectFit)
+        
+        image.sd_setImage(with: URL(string: bannerMovie.link), placeholderImage: nil, context: [.imageTransformer: transformer])
+        
+        if let categoryName = bannerMovie.movie.categories.first?.name {
+            genreNameLabel.text = categoryName
+        }
+        
+        titleLabel.text = bannerMovie.movie.name
+        subtitleLabel.text = bannerMovie.movie.description
+    }
 
     func setupUI() {
         
@@ -83,6 +90,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
         addSubview(subtitleLabel)
         addSubview(image)
         addSubview(genreNameView)
+        genreNameView.addSubview(genreNameLabel)
         
         //MARK: - Constraints
         image.snp.makeConstraints { make in
@@ -108,6 +116,13 @@ class BannerCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().inset(8)
             make.left.equalToSuperview().inset(8)
             make.height.equalTo(24)
+        }
+        
+        genreNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(genreNameView.snp.top)
+            make.bottom.equalTo(genreNameView.snp.bottom)
+            make.right.equalToSuperview().inset(8)
+            make.left.equalToSuperview().inset(8)
         }
     }
 }

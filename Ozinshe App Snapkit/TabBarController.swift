@@ -26,4 +26,12 @@ class TabBarController: UITabBarController {
         
         setViewControllers([homeVC, searchVC, favoriteVC, profileVC], animated: false)
     }
+    
+    @objc func logOutButtonTap() {
+        let logOutVC = LogOutViewController()
+        
+        logOutVC.modalPresentationStyle = .overFullScreen
+        
+        self.present(logOutVC, animated: true, completion: nil)
+    }
 }

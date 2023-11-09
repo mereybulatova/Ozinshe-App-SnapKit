@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class HistoryCollectionViewCell: UICollectionViewCell {
     
@@ -14,8 +15,6 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     let image = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "historyImage")
-        iv.layer.cornerRadius = 12
         iv.clipsToBounds = true
         
         return iv

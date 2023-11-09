@@ -7,13 +7,47 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
+
+protocol MovieProtocol {
+    func movieDidSelect(movie: Movie)
+}
+
+class TopAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let attributes = super.layoutAttributesForElements(in: rect)?
+            .map { $0.copy() } as? [UICollectionViewLayoutAttributes]
+
+        attributes?
+            .reduce([CGFloat: (CGFloat, [UICollectionViewLayoutAttributes])]()) {
+                guard $1.representedElementCategory == .cell else { return $0 }
+                return $0.merging([ceil($1.center.y): ($1.frame.origin.y, [$1])]) {
+                    ($0.0 < $1.0 ? $0.0 : $1.0, $0.1 + $1.1)
+                }
+            }
+            .values.forEach { minY, line in
+                line.forEach {
+                    $0.frame = $0.frame.offsetBy(
+                        dx: 0,
+                        dy: minY - $0.frame.origin.y
+                    )
+                }
+            }
+
+        return attributes
+    }
+}
 
 class MainTableViewCell: UITableViewCell {
 
+    var delegate : MovieProtocol?
+    
+    var mainMovie = MainMovies()
+    
     let identifier = "MainCell"
     
     let mainCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = TopAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
@@ -62,6 +96,14 @@ class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(mainMovie: MainMovies) {
+        titleLabel.text = mainMovie.categoryName
+        
+        self.mainMovie = mainMovie
+        
+        mainCollection.reloadData()
+    }
+    
     func setupUI() {
         
         contentView.addSubview(mainCollection)
@@ -92,13 +134,32 @@ class MainTableViewCell: UITableViewCell {
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return mainMovie.movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionCell", for: indexPath) as! MainCollectionViewCell
         
+        let transformer = SDImageResizingTransformer(size: CGSize(width: 112, height: 164), scaleMode: .aspectFill)
+        
+        cell.image.sd_setImage(with: URL(string: mainMovie.movies[indexPath.row].poster_link), placeholderImage: nil, context: [.imageTransformer: transformer])
+        cell.image.layer.cornerRadius = 8
+        
+        //movieNameLabel
+        cell.titleLabel.text = mainMovie.movies[indexPath.row].name
+        
+        if let genrename = mainMovie.movies[indexPath.row].genres.first {
+            cell.subtitleLabel.text = genrename.name
+        } else {
+            cell.subtitleLabel.text = ""
+        }
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        delegate?.movieDidSelect(movie: mainMovie.movies[indexPath.row])
     }
 }
