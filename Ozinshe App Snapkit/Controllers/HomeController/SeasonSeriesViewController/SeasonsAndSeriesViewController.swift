@@ -53,6 +53,7 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
         seriesTableView.delegate = self
         
         view.backgroundColor = .systemBackground
+        self.title = "Бөлімдер"
         setupUI()
         
         downloadSeasons()
@@ -109,7 +110,6 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
     }
     
     func setupUI() {
-        
         view.addSubview(seriesCollectionView)
         view.addSubview(seriesTableView)
         
@@ -177,7 +177,6 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return 240
     }
     
@@ -189,7 +188,7 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
         playerVC.video_link = seasons[currentSeason].videos[indexPath.row].link
         
         navigationController?.show(playerVC, sender: self)
+        navigationItem.title = ""
+        self.title = "Бөлімдер"
     }
-    
-
 }

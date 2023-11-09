@@ -186,6 +186,7 @@ class MovieInfoController: UIViewController {
         button.contentHorizontalAlignment = .right
         button.setTitleColor(UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
+        button.addTarget(self, action: #selector(playMovieTapped), for: .touchUpInside)
         return button
     }()
     
@@ -552,10 +553,7 @@ class MovieInfoController: UIViewController {
     
     //MARK: - objc function
     @objc func backButtonTapped() {
-        let tabViewController = TabBarController()
-        
-        tabViewController.modalPresentationStyle = .fullScreen
-        self.present(tabViewController, animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func playMovieTapped() {
@@ -564,15 +562,15 @@ class MovieInfoController: UIViewController {
             
             playerVC.video_link = movie.video_link
             
-            playerVC.modalPresentationStyle = .fullScreen
-            self.present(playerVC, animated: true, completion: nil)
+            navigationController?.show(playerVC, sender: self)
+            navigationItem.title = ""
         } else {
             let seasonsVC = SeasonsAndSeriesViewController()
             
             seasonsVC.movie = movie
             
-            seasonsVC.modalPresentationStyle = .fullScreen
-            self.present(seasonsVC, animated: true, completion: nil)
+            navigationController?.show(seasonsVC, sender: self)
+            navigationItem.title = ""
         }
     }
     

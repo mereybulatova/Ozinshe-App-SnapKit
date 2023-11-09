@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 Storage.sharedInstance.accessToken = accessToken
                 
                 self.window = UIWindow(windowScene: windowScene)
-                let viewController = TabBarController()
+                let viewController = UINavigationController(rootViewController: TabBarController())
                 self.window?.rootViewController = viewController
                 self.window?.makeKeyAndVisible()
             }

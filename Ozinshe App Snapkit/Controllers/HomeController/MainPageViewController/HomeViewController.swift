@@ -39,14 +39,12 @@ class HomeViewController: UIViewController, MovieProtocol {
         setupUI()
         addNavBarImage()
         downloadMainBanners()
+        self.title = ""
     }
     
     func addNavBarImage() {
-        let image = UIImage(named: "logoMainPage")!
-        
-        let logoImageView = UIImageView(image: image)
-        let imageItem = UIBarButtonItem.init(customView: logoImageView)
-        navigationItem.leftBarButtonItem = imageItem
+        let logoMainPage = UIBarButtonItem(image: UIImage(named: "logoMainPage"), style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = logoMainPage
     }
     
     func setupUI() {
@@ -387,8 +385,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let movieInfoVC = MovieInfoController()
         
         movieInfoVC.movie = movie
-        movieInfoVC.modalPresentationStyle = .fullScreen
           
-        self.present(movieInfoVC, animated: true, completion: nil)
+        navigationController?.show(movieInfoVC, sender: self)
     }
 }

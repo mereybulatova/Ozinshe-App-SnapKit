@@ -98,7 +98,6 @@ class OnboardingView: UIView {
     }
     
     func setupUI() {
-      
         addSubview(imageO)
         addSubview(welcomeLabel)
         addSubview(fullInfoLabel)

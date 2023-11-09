@@ -19,19 +19,12 @@ class TabBarController: UITabBarController {
         let favoriteVC = FavoriteViewController()
         let profileVC = ProfileViewController()
         
+        homeVC.title = "Тізім"
         homeVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "home"), selectedImage: UIImage(named: "homeActive"))
         searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "search"), selectedImage: UIImage(named: "searchActive"))
         favoriteVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "favorites"), selectedImage: UIImage(named: "favoritesActive"))
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile"), selectedImage: UIImage(named: "homeActive"))
         
         setViewControllers([homeVC, searchVC, favoriteVC, profileVC], animated: false)
-    }
-    
-    @objc func logOutButtonTap() {
-        let logOutVC = LogOutViewController()
-        
-        logOutVC.modalPresentationStyle = .overFullScreen
-        
-        self.present(logOutVC, animated: true, completion: nil)
     }
 }

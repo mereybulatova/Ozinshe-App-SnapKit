@@ -130,7 +130,6 @@ class UserInfoViewController: UIViewController {
         super.viewDidLoad()
       
         setupUI()
-        localizeLanguage()
         downloadPersonalInfo()
     }
     
@@ -235,6 +234,7 @@ class UserInfoViewController: UIViewController {
     //MARK: - Add subviews & constraints
     func setupUI() {
         view.backgroundColor = .systemBackground
+        navigationItem.title = "Персональная информация"
         
         view.addSubview(yourNameLabel)
         view.addSubview(nameTextField)

@@ -12,7 +12,14 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     let identifier = "SearchCollectionViewCell"
     
-    private let label: UILabel = {
+    let backView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.9, green: 0.91, blue: 0.92, alpha: 1)
+        view.layer.cornerRadius = 8
+        return view
+    }()
+    
+    let label: UILabel = {
         let labelCell = UILabel()
         labelCell.text = "MereyTheBest"
         labelCell.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
@@ -33,16 +40,17 @@ class SearchCollectionViewCell: UICollectionViewCell {
     }
 
     func setupUI() {
-    addSubview(label)
+        contentView.addSubview(backView)
+        backView.addSubview(label)
+        
+        backView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView.safeAreaLayoutGuide)
+        }
     
-    label.snp.makeConstraints { make in
-        make.left.equalTo(contentView.snp.left).inset(16)
-        make.right.equalTo(contentView.snp.right).inset(16)
-        make.top.equalTo(contentView.snp.top)
-        make.bottom.equalTo(contentView.snp.bottom)
-        make.height.equalTo(34)
+        label.snp.makeConstraints { make in
+            make.right.left.equalToSuperview().inset(16)
+            make.bottom.top.equalToSuperview()
+            make.height.equalTo(34)
     }
-    
   }
-    
 }

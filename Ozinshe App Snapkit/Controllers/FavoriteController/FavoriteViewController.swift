@@ -17,7 +17,7 @@ class FavoriteViewController: UIViewController {
     lazy var tableView: UITableView = {
         let favTableView = UITableView()
             
-            favTableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieCell")
+            favTableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableCell")
             favTableView.dataSource = self
             favTableView.delegate = self
             
@@ -36,9 +36,6 @@ class FavoriteViewController: UIViewController {
     }
     
     func setupUI() {
-        let MovieCellnib = UINib(nibName: "MovieCell", bundle: nil)
-        tableView.register(MovieCellnib, forCellReuseIdentifier: "MovieCell")
-        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -108,7 +105,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell", for: indexPath) as! MovieTableViewCell
         
         cell.setData(movie: favorite[indexPath.row])
         

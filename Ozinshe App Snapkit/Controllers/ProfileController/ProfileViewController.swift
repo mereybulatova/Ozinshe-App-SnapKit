@@ -221,19 +221,18 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     @objc func userInfoButtonTapped() {
         let userInfoVc = UserInfoViewController()
-        navigationItem.title = ""
         
         userInfoVc.modalPresentationStyle = .fullScreen
         
         navigationController?.show(userInfoVc, sender: self)
+        navigationItem.title = ""
     }
     
     @objc func changePasswordTapped() {
         let changePassword = ChangePasswordViewController()
         
-        navigationItem.title = ""
-        
         navigationController?.show(changePassword, sender: self)
+        navigationItem.title = ""
     }
     
     @objc func changeSwitch(_ dmswitch: UISwitch) {
