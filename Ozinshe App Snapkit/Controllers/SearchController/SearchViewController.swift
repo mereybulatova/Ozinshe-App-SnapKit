@@ -250,19 +250,26 @@ class SearchViewController: UIViewController {
         if searchTextField.text!.isEmpty {
             titleLabel.text = "Cанаттар"
             collectionView.isHidden = false
-            tableView.snp.makeConstraints { make in
-                make.top.equalTo(collectionView.snp.bottom)
-            }
             tableView.isHidden = true
             movies.removeAll()
             tableView.reloadData()
             exitButton.isHidden = true
+            
+            //MARK: - Hide table view
+            
+            tableView.snp.remakeConstraints { make in
+                make.top.equalTo(collectionView.snp.bottom)
+                make.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
+            }
             return
         } else {
             titleLabel.text = "Іздеу нәтижелері"
             collectionView.isHidden = true
+            
+            //MARK: - Show table view
             tableView.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                make.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
             }
             tableView.isHidden = false
             exitButton.isHidden = false

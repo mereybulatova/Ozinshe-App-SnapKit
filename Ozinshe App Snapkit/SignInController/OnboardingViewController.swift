@@ -21,6 +21,7 @@ class OnboardingViewController: UIViewController {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: "OnboardingCell")

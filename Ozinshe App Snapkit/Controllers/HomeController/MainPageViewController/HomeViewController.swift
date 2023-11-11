@@ -364,7 +364,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if mainMovies[indexPath.row].cellType == .userHistory {
             return 228.0
         }
-        if mainMovies[indexPath.row].cellType == .genre || mainMovies[indexPath.row].cellType == .ageCategory {
+        if mainMovies[indexPath.row].cellType == .genre || 
+           mainMovies[indexPath.row].cellType == .ageCategory {
             return 184.0
         }
         // mainMovie

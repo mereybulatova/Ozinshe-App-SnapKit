@@ -11,6 +11,7 @@ import Alamofire
 import SVProgressHUD
 import SwiftyJSON
 import SDWebImage
+import UIGradient
 
 class MovieInfoController: UIViewController {
     
@@ -38,7 +39,14 @@ class MovieInfoController: UIViewController {
     let posterImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "")
+        iv.contentMode = .scaleAspectFill
         return iv
+    }()
+    
+    let gradientLayer = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 393, height: 364))
+        view.backgroundColor = UIColor.fromGradientWithDirection(.topToBottom, frame: CGRect(x: 0, y: 0, width: 393, height: 364), colors: [UIColor.clear, UIColor.black], locations: [0.5, 1.0])
+        return view
     }()
     
     lazy var arrowButton = {
@@ -291,6 +299,7 @@ class MovieInfoController: UIViewController {
         movieScrollView.addSubview(movieContentView)
         
         movieContentView.addSubview(posterImageView)
+        movieContentView.addSubview(gradientLayer)
         movieContentView.addSubview(arrowButton)
         movieContentView.addSubview(favoriteButton)
         movieContentView.addSubview(shareButton)
@@ -327,6 +336,11 @@ class MovieInfoController: UIViewController {
         }
         
         posterImageView.snp.makeConstraints { make in
+            make.right.left.top.equalToSuperview()
+            make.height.equalTo(364)
+        }
+        
+        gradientLayer.snp.makeConstraints { make in
             make.right.left.top.equalToSuperview()
             make.height.equalTo(364)
         }
@@ -468,10 +482,15 @@ class MovieInfoController: UIViewController {
     }
     
     func buttonsSettings() {
-        if movie.movieType == "Movie" {
+        if movie.movieType == "MOVIE" {
             seasonsLabel.isHidden = true
             seasonsButton.isHidden = true
             arrowImage.isHidden = true
+            
+            screenshotsLabel.snp.remakeConstraints { make in
+                make.left.equalToSuperview().inset(24)
+                make.top.equalTo(grayView2.snp.bottom).offset(24)
+            }
         } else {
             seasonsButton.setTitle("\(movie.seasonCount) сезон, \(movie.seriesCount) серия", for: .normal)
         }

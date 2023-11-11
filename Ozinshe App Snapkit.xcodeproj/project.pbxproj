@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0E47AB335563730FD655D817 /* Pods_Ozinshe_App_Snapkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72E09F936083E2328CBF3B0 /* Pods_Ozinshe_App_Snapkit.framework */; };
 		C40670B92AF6D603008456B7 /* MovieInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670B82AF6D603008456B7 /* MovieInfoController.swift */; };
-		C40670BB2AF6DF13008456B7 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670BA2AF6DF13008456B7 /* GradientView.swift */; };
 		C40670BD2AF7DD24008456B7 /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670BC2AF7DD24008456B7 /* ScreenshotCollectionViewCell.swift */; };
 		C40670BF2AF8091E008456B7 /* SimilarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670BE2AF8091E008456B7 /* SimilarCollectionViewCell.swift */; };
 		C40670E22AF84EF6008456B7 /* SeasonsAndSeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670E12AF84EF6008456B7 /* SeasonsAndSeriesViewController.swift */; };
@@ -65,7 +64,6 @@
 /* Begin PBXFileReference section */
 		0D29D24EC5E575C4E407CF15 /* Pods-Ozinshe App Snapkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ozinshe App Snapkit.release.xcconfig"; path = "Target Support Files/Pods-Ozinshe App Snapkit/Pods-Ozinshe App Snapkit.release.xcconfig"; sourceTree = "<group>"; };
 		C40670B82AF6D603008456B7 /* MovieInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoController.swift; sourceTree = "<group>"; };
-		C40670BA2AF6DF13008456B7 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C40670BC2AF7DD24008456B7 /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		C40670BE2AF8091E008456B7 /* SimilarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarCollectionViewCell.swift; sourceTree = "<group>"; };
 		C40670E12AF84EF6008456B7 /* SeasonsAndSeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsAndSeriesViewController.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				C479F1F62AF02D7700C6D84C /* TextFieldWithPadding.swift */,
-				C40670BA2AF6DF13008456B7 /* GradientView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -530,7 +527,6 @@
 				C406710B2AFB0355008456B7 /* Season.swift in Sources */,
 				C40670E22AF84EF6008456B7 /* SeasonsAndSeriesViewController.swift in Sources */,
 				C40670EA2AF85F64008456B7 /* MoviePlayerViewController.swift in Sources */,
-				C40670BB2AF6DF13008456B7 /* GradientView.swift in Sources */,
 				C479F2212AF535B200C6D84C /* SearchCollectionViewCell.swift in Sources */,
 				C4CA3C7F2AF571D40003533D /* BannerCollectionViewCell.swift in Sources */,
 				C40671012AFB02D7008456B7 /* CategoryAge.swift in Sources */,

@@ -13,4 +13,5 @@ target 'Ozinshe App Snapkit' do
   pod 'SVProgressHUD'
   pod 'YouTubePlayer'
   pod 'Localize-Swift'
+  pod 'UIGradient'
 end

@@ -54,7 +54,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Телехикая"
         label.font = UIFont(name: "SFProDisplay-Regular", size: 12)
-        label.textColor = .white
+        label.textColor = UIColor(named: "FFFFFF - 111827")
         
         return label
     }()

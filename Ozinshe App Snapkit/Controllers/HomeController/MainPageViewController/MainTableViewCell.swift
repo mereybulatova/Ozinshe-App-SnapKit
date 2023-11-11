@@ -68,7 +68,7 @@ class MainTableViewCell: UITableViewCell {
         
         label.text = "Телехикая"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 16)
-        label.textColor = UIColor(named: "FFFFFF - 111827")
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
