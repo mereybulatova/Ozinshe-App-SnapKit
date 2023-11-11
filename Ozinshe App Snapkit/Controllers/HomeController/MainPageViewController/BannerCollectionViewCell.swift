@@ -18,7 +18,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
             let labelCell = UILabel()
             labelCell.text = "Қызғалдақтар мекені"
             labelCell.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-            labelCell.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+            labelCell.textColor = UIColor(named: "111827 - FFFFFF")
         
         return labelCell
     }()
@@ -63,7 +63,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupUI()
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "FFFFFF - 111827") 
     }
     
     required init?(coder: NSCoder) {

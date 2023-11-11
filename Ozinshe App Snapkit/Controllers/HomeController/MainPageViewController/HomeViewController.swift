@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, MovieProtocol {
         tableView.allowsSelection = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
+        tableView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         //Регистрация table view cell
         tableView.register(MainBannerTableViewCell.self, forCellReuseIdentifier: "MainBannerCell")
@@ -37,18 +38,21 @@ class HomeViewController: UIViewController, MovieProtocol {
         super.viewDidLoad()
         
         setupUI()
-        addNavBarImage()
         downloadMainBanners()
-        self.title = ""
+        addNavBarImage()
     }
     
     func addNavBarImage() {
-        let logoMainPage = UIBarButtonItem(image: UIImage(named: "logoMainPage"), style: .plain, target: nil, action: nil)
-        navigationItem.leftBarButtonItem = logoMainPage
+        let image = UIImage(named: "logoMainPage")
+        
+        let logoImageView = UIImageView(image: image)
+        let imageItem = UIBarButtonItem.init(customView: logoImageView)
+        navigationItem.leftBarButtonItem = imageItem
     }
     
     func setupUI() {
-        view.backgroundColor = .systemBackground
+      
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         view.addSubview(tableView)
         
         tableView.delegate = self

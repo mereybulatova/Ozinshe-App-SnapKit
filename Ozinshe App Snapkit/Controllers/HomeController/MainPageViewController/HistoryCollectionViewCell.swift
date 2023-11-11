@@ -24,7 +24,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Глобус"
         label.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -42,7 +42,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupUI()
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "FFFFFF - 111827")
     }
     
     required init?(coder: NSCoder) {

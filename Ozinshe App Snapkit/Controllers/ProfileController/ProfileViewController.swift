@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Localize_Swift
 
 class ProfileViewController: UIViewController, LanguageProtocol {
     
@@ -24,7 +25,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         
         label.text = "My Profile"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -40,11 +41,17 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }()
     
     //MARK: - Language Button Elements
-    let languageButton = {
+    let backView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        return view
+    }()
+    
+    lazy var languageButton = {
         let button = UIButton()
         
         button.setTitle("Language", for: .normal)
-        button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor(named: "111827 - FFFFFF"), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(languageButtonTapped), for: .touchUpInside)
@@ -79,11 +86,11 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }()
     
     //MARK: - User Info Button Elements
-    let userInfoButton = {
+    lazy var userInfoButton = {
         let button = UIButton()
         
         button.setTitle("Personal Information", for: .normal)
-        button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor(named: "111827 - FFFFFF"), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(userInfoButtonTapped), for: .touchUpInside)
@@ -118,11 +125,11 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }()
     
     //MARK: - Change Password Button Elements
-    let passwordEditButton = {
+    lazy var passwordEditButton = {
         let button = UIButton()
         
         button.setTitle("Change Password", for: .normal)
-        button.setTitleColor(UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor(named: "111827 - FFFFFF"), for: .normal)
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(changePasswordTapped), for: .touchUpInside)
@@ -151,13 +158,13 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         let label = UILabel()
         
         label.text = "Dark Mode"
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         
         return label
     }()
     
-    let darkModeSwitch = {
+    lazy var darkModeSwitch = {
         let dMSwitch = UISwitch()
         
         dMSwitch.onTintColor = UIColor(red: 0.702, green: 0.463, blue: 0.969, alpha: 1)
@@ -171,14 +178,13 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         setupUI()
+        localizeLanguage()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addNavBarImage()
-        
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 1C2431")
         navigationItem.title = "Profile"
     }
     
@@ -190,15 +196,21 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         passwordEditButton.setTitle("CHANGE_PASSWORD_BUTTON".localized(), for: .normal)
         darkModeLabel.text = "DARK_MODE_LABEL".localized()
         profileLabel.text = "MY_PROFILE".localized()
-        languageLabel.text = "LANGUAGE".localized()
-    }
-    
-    func addNavBarImage() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ""), style: .plain, target: self, action: #selector(LogOutTapButton))
+        languageButton.setTitle("LANGUAGE".localized(), for: .normal)
+        
+        if Localize.currentLanguage() == "ru" {
+            languageLabel.text = "Русский"
+        }
+        if Localize.currentLanguage() == "kk" {
+            languageLabel.text = "Қазақша"
+        }
+        if Localize.currentLanguage() == "en" {
+            languageLabel.text = "English"
+        }
     }
     
     func languageDidChande() {
-        languageButtonTapped()
+        localizeLanguage()
     }
     
     @objc func languageButtonTapped() {
@@ -260,19 +272,23 @@ class ProfileViewController: UIViewController, LanguageProtocol {
         view.addSubview(profileImageView)
         view.addSubview(profileLabel)
         view.addSubview(subtitleProfileLabel)
-        view.addSubview(languageLabel)
-        view.addSubview(languageButton)
-        view.addSubview(languageArrowImage)
-        view.addSubview(languageCellView)
-        view.addSubview(userInfoLabel)
-        view.addSubview(userInfoButton)
-        view.addSubview(userInfoArrowImage)
-        view.addSubview(userInfoCellView)
-        view.addSubview(passwordArrowImage)
-        view.addSubview(passwordEditButton)
-        view.addSubview(passwordCellView)
-        view.addSubview(darkModeLabel)
-        view.addSubview(darkModeSwitch)
+        view.addSubview(backView)
+        backView.addSubview(languageLabel)
+        backView.addSubview(languageButton)
+        backView.addSubview(languageArrowImage)
+        backView.addSubview(languageCellView)
+        backView.addSubview(userInfoLabel)
+        backView.addSubview(userInfoButton)
+        backView.addSubview(userInfoArrowImage)
+        backView.addSubview(userInfoCellView)
+        backView.addSubview(passwordArrowImage)
+        backView.addSubview(passwordEditButton)
+        backView.addSubview(passwordCellView)
+        backView.addSubview(darkModeLabel)
+        backView.addSubview(darkModeSwitch)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "logOut"), style: .done, target: self, action: #selector(LogOutTapButton))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
         
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(32)
@@ -289,11 +305,15 @@ class ProfileViewController: UIViewController, LanguageProtocol {
             make.centerX.equalToSuperview()
         }
         
-        languageButton.snp.makeConstraints { make in
+        backView.snp.makeConstraints { make in
             make.top.equalTo(subtitleProfileLabel.snp.bottom).offset(24)
+            make.bottom.right.left.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        languageButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.bottom.equalTo(languageCellView.snp.top).offset(1)
-            make.left.equalToSuperview().inset(24)
-            make.right.equalToSuperview().inset(24)
+            make.left.right.equalToSuperview().inset(24)
             make.height.equalTo(64)
         }
         

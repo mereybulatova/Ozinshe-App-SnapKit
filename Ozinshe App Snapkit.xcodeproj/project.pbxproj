@@ -22,7 +22,7 @@
 		C40670F22AFA9465008456B7 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F12AFA9465008456B7 /* LanguageViewController.swift */; };
 		C40670F42AFA9B39008456B7 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F32AFA9B39008456B7 /* LanguageTableViewCell.swift */; };
 		C40670F62AFAA345008456B7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F52AFAA344008456B7 /* OnboardingViewController.swift */; };
-		C40670FA2AFAC4A0008456B7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F92AFAC4A0008456B7 /* OnboardingView.swift */; };
+		C40670FA2AFAC4A0008456B7 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670F92AFAC4A0008456B7 /* OnboardingCell.swift */; };
 		C40670FD2AFB0285008456B7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670FC2AFB0285008456B7 /* Movie.swift */; };
 		C40670FF2AFB02B6008456B7 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40670FE2AFB02B6008456B7 /* Screenshot.swift */; };
 		C40671012AFB02D7008456B7 /* CategoryAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671002AFB02D7008456B7 /* CategoryAge.swift */; };
@@ -78,7 +78,7 @@
 		C40670F12AFA9465008456B7 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		C40670F32AFA9B39008456B7 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
 		C40670F52AFAA344008456B7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		C40670F92AFAC4A0008456B7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		C40670F92AFAC4A0008456B7 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		C40670FC2AFB0285008456B7 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		C40670FE2AFB02B6008456B7 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		C40671002AFB02D7008456B7 /* CategoryAge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAge.swift; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 				C479F1F82AF040CE00C6D84C /* SignUpViewController.swift */,
 				C479F20C2AF268B700C6D84C /* SignInViewController.swift */,
 				C40670F52AFAA344008456B7 /* OnboardingViewController.swift */,
-				C40670F92AFAC4A0008456B7 /* OnboardingView.swift */,
+				C40670F92AFAC4A0008456B7 /* OnboardingCell.swift */,
 			);
 			path = SignInController;
 			sourceTree = "<group>";
@@ -516,7 +516,7 @@
 				C479F1C62AF010C100C6D84C /* AppDelegate.swift in Sources */,
 				C40670F42AFA9B39008456B7 /* LanguageTableViewCell.swift in Sources */,
 				C479F2162AF2B50A00C6D84C /* HomeViewController.swift in Sources */,
-				C40670FA2AFAC4A0008456B7 /* OnboardingView.swift in Sources */,
+				C40670FA2AFAC4A0008456B7 /* OnboardingCell.swift in Sources */,
 				C479F1FB2AF0521C00C6D84C /* Urls.swift in Sources */,
 				C479F1C82AF010C100C6D84C /* SceneDelegate.swift in Sources */,
 				C40670F02AF98129008456B7 /* LogOutViewController.swift in Sources */,

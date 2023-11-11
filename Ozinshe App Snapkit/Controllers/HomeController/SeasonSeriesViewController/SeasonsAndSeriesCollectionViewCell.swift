@@ -33,7 +33,7 @@ class SeasonsAndSeriesCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupUI()
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "FFFFFF - 111827")
     }
     
     required init?(coder: NSCoder) {

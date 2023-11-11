@@ -29,7 +29,7 @@ class HistoryTableViewCell: UITableViewCell {
         collectionView.register(HistoryCollectionViewCell.self, forCellWithReuseIdentifier: "HistoryCollectionCell")
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         return collectionView
     }()
@@ -39,7 +39,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         label.text = "Қарауды жалғастырыңыз"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 16)
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -65,6 +65,7 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
+        contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         contentView.addSubview(historyCollection)
         contentView.addSubview(titleLabel)

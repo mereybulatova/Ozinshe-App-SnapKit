@@ -28,6 +28,8 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
         collectionView.register(SeasonsAndSeriesCollectionViewCell.self, forCellWithReuseIdentifier: "SeasonCell")
         collectionView.showsHorizontalScrollIndicator = false
         
+        collectionView.backgroundColor =  UIColor(named: "FFFFFF - 111827")
+        
         return collectionView
     }()
     
@@ -37,6 +39,7 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
         tv.allowsSelection = true
         tv.showsVerticalScrollIndicator = false
         tv.showsHorizontalScrollIndicator = false
+        tv.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         tv.register(SeasonSeriesTableViewCell.self, forCellReuseIdentifier: "SeriesCell")
         return tv
@@ -110,6 +113,8 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
     }
     
     func setupUI() {
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
         view.addSubview(seriesCollectionView)
         view.addSubview(seriesTableView)
         

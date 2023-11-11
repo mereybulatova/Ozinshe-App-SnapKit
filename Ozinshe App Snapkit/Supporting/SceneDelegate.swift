@@ -15,7 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         
-        let navController = UINavigationController(rootViewController: SignInViewController())
+        (UIApplication.shared.delegate as? AppDelegate)?.self.window = window
+        
+        let navController = UINavigationController(rootViewController: OnboardingViewController())
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
@@ -27,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 Storage.sharedInstance.accessToken = accessToken
                 
                 self.window = UIWindow(windowScene: windowScene)
-                let viewController = UINavigationController(rootViewController: TabBarController())
+                let viewController = TabBarController()
                 self.window?.rootViewController = viewController
                 self.window?.makeKeyAndVisible()
             }

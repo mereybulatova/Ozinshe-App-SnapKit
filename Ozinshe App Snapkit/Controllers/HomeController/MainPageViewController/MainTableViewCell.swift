@@ -58,7 +58,7 @@ class MainTableViewCell: UITableViewCell {
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "MainCollectionCell")
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         return collectionView
     }()
@@ -68,7 +68,7 @@ class MainTableViewCell: UITableViewCell {
         
         label.text = "Телехикая"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 16)
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "FFFFFF - 111827")
         
         return label
     }()
@@ -105,6 +105,7 @@ class MainTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
+        contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         contentView.addSubview(mainCollection)
         contentView.addSubview(titleLabel)

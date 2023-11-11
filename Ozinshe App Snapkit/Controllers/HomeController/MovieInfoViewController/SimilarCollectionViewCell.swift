@@ -33,7 +33,7 @@ class SimilarCollectionViewCell: UICollectionViewCell {
     let movieGenreNameLabel = {
         let label = UILabel()
         label.text = "Мультсериал"
-        label.textColor = UIColor(red: 0.61, green: 0.64, blue: 0.69, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Regular", size: 12)
         
         return label
@@ -43,7 +43,7 @@ class SimilarCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupUI()
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "FFFFFF - 111827")
     }
     
     required init?(coder: NSCoder) {

@@ -16,7 +16,7 @@ class ChangePasswordViewController: UIViewController {
         let label = UILabel()
         label.text = "Құпиясөз"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -25,7 +25,7 @@ class ChangePasswordViewController: UIViewController {
         let textField = TextFieldWithPadding()
         textField.placeholder = "Сіздің құпия сөзіңіз"
         textField.isSecureTextEntry = true
-        textField.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
         textField.layer.borderWidth = 1.0
         textField.layer.cornerRadius = 12
@@ -40,7 +40,7 @@ class ChangePasswordViewController: UIViewController {
         return image
     }()
     
-    let showPasswordButton = {
+    lazy var showPasswordButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "showPassword"), for: .normal)
         button.addTarget(self, action: #selector(showPasswordButtonTapped), for: .touchUpInside)
@@ -52,7 +52,7 @@ class ChangePasswordViewController: UIViewController {
         let label = UILabel()
         label.text = "Құпиясөзді қайталаңыз"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -61,7 +61,7 @@ class ChangePasswordViewController: UIViewController {
         let textField = TextFieldWithPadding()
         textField.placeholder = "Сіздің құпия сөзіңіз"
         textField.isSecureTextEntry = true
-        textField.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
         textField.layer.borderWidth = 1.0
         textField.layer.cornerRadius = 12
@@ -76,7 +76,7 @@ class ChangePasswordViewController: UIViewController {
         return image
     }()
     
-    let repeatShowPasswordButton = {
+    lazy var repeatShowPasswordButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "showPassword"), for: .normal)
         button.addTarget(self, action: #selector(repeatShowPasswordTapped), for: .touchUpInside)
@@ -97,8 +97,8 @@ class ChangePasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
         setupUI()
+        localizeLanguage()
     }
     
     func localizeLanguage() {
@@ -162,6 +162,8 @@ class ChangePasswordViewController: UIViewController {
     }
     
     func setupUI() {
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
         view.addSubview(passwordLabel)
         view.addSubview(passwordTextField)
         view.addSubview(passwordImage)

@@ -26,7 +26,7 @@ class UserInfoViewController: UIViewController {
     let nameTextField = {
         let textField = UITextField()
         textField.placeholder = "Атыңынызды енгізіңіз..."
-        textField.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         
         return textField
@@ -51,7 +51,7 @@ class UserInfoViewController: UIViewController {
     let emailTextField = {
         let textField = UITextField()
         textField.placeholder = "ali@gmail.com"
-        textField.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         
         return textField
@@ -76,7 +76,7 @@ class UserInfoViewController: UIViewController {
     let phoneTextField = {
         let textField = UITextField()
         textField.placeholder = "+7 702 732-10-31"
-        textField.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         
         return textField
@@ -101,7 +101,7 @@ class UserInfoViewController: UIViewController {
     let birthTextField = {
         let textField = UITextField()
         textField.placeholder = "2005-01-28"
-        textField.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        textField.textColor = UIColor(named: "111827 - FFFFFF")
         textField.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
         
         return textField
@@ -114,7 +114,7 @@ class UserInfoViewController: UIViewController {
         return view
     }()
     
-    let saveChangesButton = {
+    lazy var saveChangesButton = {
         let button = UIButton()
         button.setTitle("Өзгерістерді сақтау", for: .normal)
         button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
@@ -131,6 +131,7 @@ class UserInfoViewController: UIViewController {
       
         setupUI()
         downloadPersonalInfo()
+        localizeLanguage()
     }
     
     //MARK: - Add functions
@@ -233,7 +234,7 @@ class UserInfoViewController: UIViewController {
     
     //MARK: - Add subviews & constraints
     func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         navigationItem.title = "Персональная информация"
         
         view.addSubview(yourNameLabel)

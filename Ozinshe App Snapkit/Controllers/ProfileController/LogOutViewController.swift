@@ -14,44 +14,79 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let backView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         view.layer.cornerRadius = 32
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.opacity = 1
+        return view
+    }()
         
-        let homeView = UIView()
-        homeView.backgroundColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
-        homeView.layer.cornerRadius = 3
+    let homeView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.82, green: 0.835, blue: 0.859, alpha: 1)
+        view.layer.cornerRadius = 3
+        return view
+    }()
+    
+    let logOutLabel = {
+        let label = UILabel()
+        label.text = "Шығу"
+        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
+        return label
+    }()
+    
+    let questionLabel = {
+        let label = UILabel()
+        label.text = "Сіз шынымен аккаунтыңыздан шығасыз ба?"
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 16)
+        label.textColor = UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1)
+        return label
+    }()
+    
+    lazy var agreeButton = {
+        let button = UIButton()
+        button.setTitle("Иә, шығу", for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
+        button.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
+        button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        button.layer.cornerRadius = 12
+        return button
+    }()
+    
+    lazy var disagreeButton = {
+        let button = UIButton()
+        button.setTitle("Жоқ", for: .normal)
+        button.setTitleColor(UIColor(red: 0.329, green: 0.082, blue: 0.776, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        button.layer.cornerRadius = 12
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        let logOutLabel = UILabel()
-        logOutLabel.text = "Шығу"
-        logOutLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        logOutLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        setupUI()
+        tapGest()
+        localizeLanguage()
+    }
+    
+    func setupUI() {
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         
-        let questionLabel = UILabel()
-        questionLabel.text = "Сіз шынымен аккаунтыңыздан шығасыз ба?"
-        questionLabel.font = UIFont(name: "SFProDisplay-Regular", size: 16)
-        questionLabel.textColor = UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1)
+        view.addSubview(backView)
+        backView.addSubview(homeView)
+        backView.addSubview(logOutLabel)
+        backView.addSubview(questionLabel)
+        backView.addSubview(agreeButton)
+        backView.addSubview(disagreeButton)
         
-        let agreeButton = UIButton()
-        agreeButton.setTitle("Иә, шығу", for: .normal)
-        agreeButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
-        agreeButton.backgroundColor = UIColor(red: 0.5, green: 0.18, blue: 0.99, alpha: 1)
-        agreeButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
-        agreeButton.layer.cornerRadius = 12
-        
-        let disagreeButton = UIButton()
-        disagreeButton.setTitle("Жоқ", for: .normal)
-        disagreeButton.setTitleColor(UIColor(red: 0.329, green: 0.082, blue: 0.776, alpha: 1), for: .normal)
-        disagreeButton.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
-        disagreeButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        disagreeButton.layer.cornerRadius = 12
-        
-        view.addSubview(homeView)
-        view.addSubview(logOutLabel)
-        view.addSubview(questionLabel)
-        view.addSubview(agreeButton)
-        view.addSubview(disagreeButton)
+        backView.snp.makeConstraints { make in
+            make.height.equalTo(303)
+            make.bottom.equalToSuperview()
+            make.right.left.equalTo(view.safeAreaLayoutGuide)
+        }
         
         homeView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(21)
@@ -80,26 +115,13 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
             make.left.right.equalToSuperview().inset(24)
             make.height.equalTo(56)
         }
-        
-        return view
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupUI()
     }
     
-    func setupUI() {
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        
-        view.addSubview(backView)
-        
-        backView.snp.makeConstraints { make in
-            make.height.equalTo(303)
-            make.bottom.equalToSuperview()
-            make.right.left.equalTo(view.safeAreaLayoutGuide)
-        }
+    func localizeLanguage() {
+        logOutLabel.text = "LOG_OUT_LABEL".localized()
+        questionLabel.text = "LOG_OUT_QUES_LABEL".localized()
+        agreeButton.setTitle("LOG_OUT_BUTTON".localized(), for: .normal)
+        disagreeButton.setTitle("NO_LOG_OUT_BUTTON".localized(), for: .normal)
     }
     
     func tapGest() {

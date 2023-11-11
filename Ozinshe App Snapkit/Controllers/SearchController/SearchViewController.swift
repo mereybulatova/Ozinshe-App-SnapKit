@@ -37,25 +37,29 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
 class SearchViewController: UIViewController {
     
+    var isLoading: Bool = false
+    
     var categories: [Category] = []
     
     var movies: [Movie] = []
     
     //MARK: - Add UI Elements
+    
         let searchTextField = {
         let searchTF = TextFieldWithPadding()
         
         searchTF.padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         searchTF.placeholder = "Іздеу"
         searchTF.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
-        searchTF.textColor = UIColor(red: 0.612, green: 0.639, blue: 0.686, alpha: 1)
+        searchTF.textColor = UIColor(named: "111827 - FFFFFF")
         searchTF.layer.borderWidth = 1.0
         searchTF.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
         searchTF.layer.cornerRadius = 12.0
         
         return searchTF
     }()
-        let exitButton = {
+    
+    lazy var exitButton = {
         let exitBut = UIButton()
         
         exitBut.setImage(UIImage(named: "exitButton"), for: .normal)
@@ -65,7 +69,7 @@ class SearchViewController: UIViewController {
         return exitBut
     }()
     
-        let searchButton = {
+    lazy var searchButton = {
         let searchBut = UIButton()
         
         searchBut.setImage(UIImage(named: "searchVC"), for: .normal)
@@ -80,7 +84,7 @@ class SearchViewController: UIViewController {
         
         label.text = "Санаттар"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -91,9 +95,12 @@ class SearchViewController: UIViewController {
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 8
         layout.itemSize = CGSize(width: 128, height: 34)
+        layout.estimatedItemSize.width = 100
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionViewCell")
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        collectionView.contentInsetAdjustmentBehavior = .automatic
         
         return collectionView
     }()
@@ -104,21 +111,11 @@ class SearchViewController: UIViewController {
         tv.allowsSelection = true
         tv.showsVerticalScrollIndicator = false
         tv.showsHorizontalScrollIndicator = false
-        
+        tv.backgroundColor = UIColor(named: "FFFFFF - 111827")
         //Регистрация table view cell
-        tv.register(MovieTableViewCell.self, forCellReuseIdentifier: "SearchTableCell")
+        tv.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableCell")
         
         return tv
-    }()
-    
-    let tableViewToCollectionConstraint = {
-        let constraints = NSLayoutConstraint()
-        return constraints
-    }()
-    
-    let tableViewToLabelConstraint = {
-        let constraints = NSLayoutConstraint()
-        return constraints
     }()
     
     override func viewDidLoad() {
@@ -131,14 +128,11 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //MARK: - UI Elements
-        view.backgroundColor = .systemBackground
+        addViews()
+        
         exitButton.isHidden = true
         hideKeyboardWhenTappedAround()
         downloadCategories()
-        
-        //MARK: - Constraints
-        addViews()
     }
     
     func hideKeyboardWhenTappedAround() {
@@ -160,12 +154,105 @@ class SearchViewController: UIViewController {
         downloadSearchMovies()
     }
     
+    // MARK: - downloadCategories
+    func downloadCategories() {
+               SVProgressHUD.show()
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(Storage.sharedInstance.accessToken)"]
+        
+        AF.request(Urls.CATEGORIES_URL, method: .get, headers: headers).responseData { response in
+            
+            SVProgressHUD.dismiss()
+            var resultString = ""
+            if let data = response.data {
+                resultString = String(data: data, encoding: .utf8)!
+                print(resultString)
+            }
+            
+            if response.response?.statusCode == 200 {
+                let json = JSON(response.data!)
+                print("JSON: \(json)")
+                
+                if let array = json.array {
+                    for item in array {
+                        let category = Category(json: item)
+                        self.categories.append(category)
+                    }
+                    self.collectionView.reloadData()
+                } else {
+                    SVProgressHUD.showError(withStatus: "CONNECTION_ERROR".localized())
+                }
+            } else {
+                var ErrorString = "CONNECTION_ERROR".localized()
+                if let sCode = response.response?.statusCode {
+                    ErrorString = ErrorString + "\(sCode)"
+                }
+                ErrorString = ErrorString + "\(resultString)"
+                SVProgressHUD.showError(withStatus: "\(ErrorString)")
+            }
+        }
+    }
+    
+    func addViews() {
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
+        view.addSubview(searchButton)
+        view.addSubview(searchTextField)
+        view.addSubview(exitButton)
+        view.addSubview(titleLabel)
+        view.addSubview(collectionView)
+        view.addSubview(tableView)
+        
+        
+        searchTextField.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.left.equalToSuperview().inset(24)
+            make.right.equalToSuperview().inset(96)
+            make.height.equalTo(56)
+            make.width.equalTo(255)
+        }
+        
+        exitButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(52)
+            make.width.equalTo(52)
+            make.right.equalTo(searchTextField.snp.right).offset(0)
+            make.centerY.equalTo(searchTextField)
+        }
+        
+        searchButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.right.equalToSuperview().inset(24)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.height.equalTo(28)
+            make.top.equalTo(searchTextField.snp.bottom).offset(35)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.right.left.equalToSuperview()
+            make.bottom.equalTo(tableView.snp.top)
+            make.height.equalTo(340)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
     func downloadSearchMovies() {
         if searchTextField.text!.isEmpty {
             titleLabel.text = "Cанаттар"
             collectionView.isHidden = false
-//            tableViewToLabelConstraint.priority = .defaultLow
-//            tableViewToCollectionConstraint.priority = .defaultHigh
+            tableView.snp.makeConstraints { make in
+                make.top.equalTo(collectionView.snp.bottom)
+            }
             tableView.isHidden = true
             movies.removeAll()
             tableView.reloadData()
@@ -174,8 +261,9 @@ class SearchViewController: UIViewController {
         } else {
             titleLabel.text = "Іздеу нәтижелері"
             collectionView.isHidden = true
-//            tableViewToLabelConstraint.priority = .defaultHigh
-//            tableViewToCollectionConstraint.priority = .defaultLow
+            tableView.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            }
             tableView.isHidden = false
             exitButton.isHidden = false
         }
@@ -222,91 +310,6 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    
-    func downloadCategories() {
-               SVProgressHUD.show()
-        
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(Storage.sharedInstance.accessToken)"]
-        
-        AF.request(Urls.CATEGORIES_URL, method: .get, headers: headers).responseData { response in
-            
-            SVProgressHUD.dismiss()
-            var resultString = ""
-            if let data = response.data {
-                resultString = String(data: data, encoding: .utf8)!
-                print(resultString)
-            }
-            
-            if response.response?.statusCode == 200 {
-                let json = JSON(response.data!)
-                print("JSON: \(json)")
-                
-                if let array = json.array {
-                    for item in array {
-                        let category = Category(json: item)
-                        self.categories.append(category)
-                    }
-                    self.collectionView.reloadData()
-                } else {
-                    SVProgressHUD.showError(withStatus: "CONNECTION_ERROR".localized())
-                }
-            } else {
-                var ErrorString = "CONNECTION_ERROR".localized()
-                if let sCode = response.response?.statusCode {
-                    ErrorString = ErrorString + "\(sCode)"
-                }
-                ErrorString = ErrorString + "\(resultString)"
-                SVProgressHUD.showError(withStatus: "\(ErrorString)")
-            }
-        }
-    }
-    
-    func addViews() {
-        view.addSubview(exitButton)
-        view.addSubview(searchButton)
-        view.addSubview(searchTextField)
-        view.addSubview(titleLabel)
-        view.addSubview(collectionView)
-        view.addSubview(tableView)
-        
-        
-        searchTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.left.equalToSuperview().inset(24)
-            make.right.equalToSuperview().inset(96)
-            make.height.equalTo(56)
-            make.width.equalTo(255)
-        }
-        
-        exitButton.snp.makeConstraints { make in
-            
-            make.height.equalTo(52)
-            make.width.equalTo(52)
-            make.right.equalTo(searchTextField.snp.right).offset(0)
-            make.centerY.equalTo(searchTextField)
-        }
-        
-        searchButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.right.equalToSuperview().inset(24)
-            make.width.equalTo(56)
-            make.height.equalTo(56)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(24)
-            make.top.equalTo(searchTextField.snp.bottom).offset(35)
-        }
-        
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.right.left.equalToSuperview()
-//            make.bottom.equalTo(tableView)
-            make.height.equalTo(340)
-        }
-        
-    }
 }
 
 
@@ -315,6 +318,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
@@ -358,11 +362,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let categoryTableViewController = tableView.dequeueReusableCell(withIdentifier: "SearchTableCell", for: indexPath) as! CategoryTableViewController
+        let categoryTableViewController = CategoryTableViewController()
         categoryTableViewController.categoryID = categories[indexPath.row].id
         categoryTableViewController.categoryName = categories[indexPath.row].name
         
         navigationController?.show(categoryTableViewController, sender: self)
+        navigationItem.title = ""
     }
 }
 

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class CategoryTableViewController: UITableViewController {
     
-    let identifier = "SearchTableCell"
+    let identifier = "SearchTableViewController"
 
     var categoryID = 0
     var categoryName = ""
@@ -26,9 +26,8 @@ class CategoryTableViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        
-        let MovieCell = UINib(nibName: "MovieCell", bundle: nil)
-        tableView.register(MovieCell, forCellReuseIdentifier: "MovieCell")
+    
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableCell")
         
         self.title = categoryName
         navigationItem.title = ""

@@ -14,16 +14,16 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     let backView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.9, green: 0.91, blue: 0.92, alpha: 1)
+        view.backgroundColor = UIColor(named: "F3F4F6 - 374151")
         view.layer.cornerRadius = 8
         return view
     }()
     
     let label: UILabel = {
         let labelCell = UILabel()
-        labelCell.text = "MereyTheBest"
+        labelCell.text = ""
         labelCell.font = UIFont(name: "SFProDisplay-Semibold", size: 12)
-        labelCell.textColor = UIColor(red: 0.216, green: 0.255, blue: 0.318, alpha: 1)
+        labelCell.textColor = UIColor(named: "374151 - 1C2431")
         
         return labelCell
     }()
@@ -31,7 +31,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        backgroundColor = UIColor(red: 0.898, green: 0.906, blue: 0.922, alpha: 1)
+        backgroundColor = UIColor(named: "FFFFFF - 111827")
         layer.cornerRadius = 8
     }
     

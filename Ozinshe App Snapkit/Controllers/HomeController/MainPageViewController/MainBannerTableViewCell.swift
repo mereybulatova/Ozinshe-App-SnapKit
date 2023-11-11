@@ -28,7 +28,8 @@ class MainBannerTableViewCell: UITableViewCell {
         collectionView.register(BannerCollectionViewCell.self, forCellWithReuseIdentifier: "BannerCell")
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .systemBackground
+        
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         return collectionView
     }()
@@ -54,7 +55,7 @@ class MainBannerTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
-        
+        contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         contentView.addSubview(bannerCollection)
         
         bannerCollection.snp.makeConstraints { make in

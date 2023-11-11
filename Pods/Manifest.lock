@@ -10,7 +10,9 @@ PODS:
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
   - SnapKit (5.6.0)
-  - SVProgressHUD (2.2.5)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
   - SwiftyJSON (5.0.1)
   - YouTubePlayer (0.7.2)
 
@@ -38,7 +40,7 @@ SPEC CHECKSUMS:
   Localize-Swift: 6f4475136bdb0d7b2882ea3d4ea919d70142b232
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   YouTubePlayer: 2b5f2830d8f9b2cde942083211291e382c9e6bd5
 

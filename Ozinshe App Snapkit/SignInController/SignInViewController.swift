@@ -17,7 +17,7 @@ class SignInViewController: UIViewController {
             let label = UILabel()
             label.text = "Сәлем"
             label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-            label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+            label.textColor = UIColor(named: "111827 - FFFFFF")
             
             return label
         }()
@@ -35,7 +35,7 @@ class SignInViewController: UIViewController {
             let label = UILabel()
             label.text = "Email"
             label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-            label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+            label.textColor = UIColor(named: "111827 - FFFFFF")
             
             return label
         }()
@@ -44,7 +44,7 @@ class SignInViewController: UIViewController {
             let tf = TextFieldWithPadding()
             tf.placeholder = "Сіздің email"
             tf.font = UIFont(name: "SFProDisplay-Regular", size: 16)
-            tf.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+            tf.textColor = UIColor(named: "111827 - FFFFFF")
             tf.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
             tf.layer.cornerRadius = 12
             tf.layer.borderWidth = 1
@@ -63,7 +63,7 @@ class SignInViewController: UIViewController {
             let label = UILabel()
             label.text = "Құпиясөз"
             label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-            label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+            label.textColor = UIColor(named: "111827 - FFFFFF")
             
             return label
         }()
@@ -72,7 +72,7 @@ class SignInViewController: UIViewController {
             let tf = TextFieldWithPadding()
             tf.placeholder = "Сіздің құпия сөзіңіз"
             tf.font = UIFont(name: "SFProDisplay-Regular", size: 16)
-            tf.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1.00)
+            tf.textColor = UIColor(named: "111827 - FFFFFF")
             tf.layer.borderColor = UIColor(red: 0.90, green: 0.92, blue: 0.94, alpha: 1.00).cgColor
             tf.isSecureTextEntry = true
             tf.layer.cornerRadius = 12
@@ -88,7 +88,7 @@ class SignInViewController: UIViewController {
             return iv
         }()
         
-        let showPasswordButton = {
+    lazy var showPasswordButton = {
             let button = UIButton()
             button.setImage(UIImage(named: "showPassword"), for: .normal)
             button.addTarget(self, action: #selector(showPasswordTapped), for: .touchUpInside)
@@ -96,7 +96,7 @@ class SignInViewController: UIViewController {
             return button
         }()
         
-        let signInButton = {
+    lazy var signInButton = {
             let button = UIButton()
             button.setTitle("Кіру", for: .normal)
             button.setTitleColor(.white, for: .normal)
@@ -108,7 +108,7 @@ class SignInViewController: UIViewController {
             return button
         }()
         
-        let signUpButton = {
+    lazy var signUpButton = {
             let button = UIButton()
             button.setTitle("Тіркелу", for: .normal)
             button.titleLabel?.font = UIFont(name: "SFProDisplay-Semibold", size: 14)
@@ -131,14 +131,13 @@ class SignInViewController: UIViewController {
     //MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        localizedLanguage()
         
         setupUI()
         hideKeyboardWhenTappedAround()
+        localizedLanguage()
     }
     
     //MARK: - Add functional
@@ -211,6 +210,8 @@ class SignInViewController: UIViewController {
        
     //MARK: - Add Subviews & Constraints
     func setupUI() {
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
         view.addSubview(welcomeLabel)
         view.addSubview(signInLabel)
         view.addSubview(emailLabel)

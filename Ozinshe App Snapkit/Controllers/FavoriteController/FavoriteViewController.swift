@@ -16,13 +16,14 @@ class FavoriteViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let favTableView = UITableView()
-            
-            favTableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableCell")
-            favTableView.dataSource = self
-            favTableView.delegate = self
-            
-            return favTableView
-        }()
+        favTableView.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
+        favTableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableCell")
+        favTableView.dataSource = self
+        favTableView.delegate = self
+        
+        return favTableView
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         downloadFavorites()
@@ -30,12 +31,14 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
-        view.backgroundColor = .systemBackground
+        
         setupUI()
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
     }
     
     func setupUI() {
+        navigationItem.title = "FAVORITE_NAVIGATION".localized()
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in

@@ -16,7 +16,7 @@ class SeasonSeriesTableViewCell: UITableViewCell {
         
         label.text = "1 - ші бөлім"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 14)
-        label.textColor = UIColor(red: 0.07, green: 0.09, blue: 0.15, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -48,6 +48,8 @@ class SeasonSeriesTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
+        contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        
         contentView.addSubview(seriesImage)
         contentView.addSubview(seriesLabel)
         contentView.addSubview(grayView)

@@ -21,7 +21,7 @@ class MoviePlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         view.addSubview(player)
         
         player.snp.makeConstraints { make in

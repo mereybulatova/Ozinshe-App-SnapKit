@@ -23,7 +23,7 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let backView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         view.layer.cornerRadius = 32
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
@@ -34,7 +34,7 @@ class LanguageViewController: UIViewController, UIGestureRecognizerDelegate {
         let languageLabel = UILabel()
         languageLabel.text = "Тіл"
         languageLabel.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        languageLabel.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        languageLabel.textColor = UIColor(named: "111827 - FFFFFF")
         
         view.addSubview(homeView)
         view.addSubview(languageLabel)

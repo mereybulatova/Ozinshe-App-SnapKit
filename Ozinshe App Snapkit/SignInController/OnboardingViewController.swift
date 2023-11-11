@@ -10,14 +10,28 @@ import SnapKit
 
 class OnboardingViewController: UIViewController {
     
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.isPagingEnabled = true
-        scrollView.bounces = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
+    var arraySlides = [["firstSlide", "ÖZINŞE-ге қош келдің!", "Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары"], ["secondSlide", "ÖZINŞE-ге қош келдің!", "Кез келген құрылғыдан қара. Сүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара"], ["thirdSlide", "ÖZINŞE-ге қош келдің!", "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз"]]
+    
+    var currentPage = 0 {
+        didSet {
+            pageControl.currentPage = currentPage
+        }
+    }
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         
-        return scrollView
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: "OnboardingCell")
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.isPagingEnabled = true
+        collectionView.isScrollEnabled = true
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        return collectionView
     }()
     
     let pageControl = {
@@ -32,40 +46,37 @@ class OnboardingViewController: UIViewController {
         return pc
     }()
     
-    private var slides = [OnboardingView]()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
+   
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.title = ""
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        slides = createSlides()
-        setupSlidesScrollView(slides: slides)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
-        scrollView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    @objc func nextButtonTouched() {
+        let signInViewController = SignInViewController()
+        navigationController?.show(signInViewController, sender: self)
     }
     
     func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        view.addSubview(scrollView)
+        view.addSubview(collectionView)
         view.addSubview(pageControl)
         
-        scrollView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
         }
         
@@ -74,70 +85,49 @@ class OnboardingViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
     }
-    
-    func createSlides() -> [OnboardingView] {
-        let firstOnboardingView = OnboardingView()
-        firstOnboardingView.setPageElements(image: UIImage(named: "firstSlide")!,
-                                            text: "ÖZINŞE-ге қош келдің!", subtitleText: "Фильмдер, телехикаялар, ситкомдар, анимациялық жобалар, телебағдарламалар мен реалити-шоулар, аниме және тағы басқалары",
-                                            nextButtonB: true,
-                                            skipButtonB: false)
-        
-        let secondOnboardingView = OnboardingView()
-        secondOnboardingView.setPageElements(image: UIImage(named: "secondSlide")!,
-                                             text: "ÖZINŞE-ге қош келдің!",
-                                             subtitleText: "Кез келген құрылғыдан қара. Сүйікті фильміңді  қосымша төлемсіз телефоннан, планшеттен, ноутбуктан қара",
-                                             nextButtonB: true,
-                                             skipButtonB: false)
-        
-        let thirdOnboardingView = OnboardingView()
-        thirdOnboardingView.setPageElements(image: UIImage(named: "thirdSlide")!,
-                                            text: "ÖZINŞE-ге қош келдің!",
-                                            subtitleText: "Тіркелу оңай. Қазір тіркел де қалаған фильміңе қол жеткіз",
-                                            nextButtonB: false,
-                                            skipButtonB: true)
-        
-        return [firstOnboardingView, secondOnboardingView, thirdOnboardingView]
-    }
-    
-    func setupSlidesScrollView(slides: [OnboardingView]) {
-        
-        scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(slides.count),
-                                        height: view.frame.height)
-        for i in 0..<slides.count {
-            slides[i].frame = CGRect(x: view.frame.width * CGFloat(i),
-                                     y: 0,
-                                     width: view.frame.width,
-                                     height: view.frame.height)
-            scrollView.addSubview(slides[i])
-        }
-    }
-    
 }
-extension OnboardingViewController: UIScrollViewDelegate {
+
+extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-      func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arraySlides.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCell
+        
+        cell.imageO.image = UIImage(named: arraySlides[indexPath.row][0])
+        
+        cell.welcomeLabel.text = arraySlides[indexPath.row][1]
+        
+        cell.fullInfoLabel.text = arraySlides[indexPath.row][2]
+        
+        cell.skipButton.layer.cornerRadius = 8
+        if indexPath.row == 2 {
+            cell.skipButton.isHidden = true
+        }
+        cell.skipButton.addTarget(self, action: #selector(nextButtonTouched), for: .touchUpInside)
+        
+        cell.nextButton.layer.cornerRadius = 12
+        if indexPath.row != 2 {
+            cell.nextButton.isHidden = true
+        }
+        
+        cell.nextButton.addTarget(self, action: #selector(nextButtonTouched), for: .touchUpInside)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x / view.frame.width)
         pageControl.currentPage = Int(pageIndex)
-        
-        let maxHorizontalOffset = scrollView.contentSize.width - view.frame.width
-        let percentHorizontalOffset = scrollView.contentOffset.x / maxHorizontalOffset
-        
-//        print(percentHorizontalOffset )
-//        
-//        if percentHorizontalOffset <= 0.5 {
-//            let firstTransform = CGAffineTransform(scaleX: (0.5 - percentHorizontalOffset) / 0.5,
-//                                                   y: (0.5 - percentHorizontalOffset) / 0.5)
-//            let secondTransform = CGAffineTransform(scaleX: percentHorizontalOffset / 0.5,
-//                                                    y: percentHorizontalOffset / 0.5)
-//            slides[0].setPageElementsTransform(transform: firstTransform)
-//            slides[1].setPageElementsTransform(transform: secondTransform)
-//        } else {
-//            let secondTransform = CGAffineTransform(scaleX: (1 - percentHorizontalOffset) / 0.5,
-//                                                    y: (1 - percentHorizontalOffset) / 0.5)
-//            let thirdTransform = CGAffineTransform(scaleX: percentHorizontalOffset,
-//                                                   y: percentHorizontalOffset)
-//            slides[1].setPageElementsTransform(transform: secondTransform)
-//            slides[2].setPageElementsTransform(transform: thirdTransform)
-//        }
     }
 }

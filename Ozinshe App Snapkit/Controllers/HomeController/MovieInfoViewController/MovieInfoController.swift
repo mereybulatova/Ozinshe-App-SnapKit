@@ -22,15 +22,16 @@ class MovieInfoController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.contentMode = .scaleToFill
         scrollView.bounces = false
-        scrollView.backgroundColor = .systemBackground
+        scrollView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         return scrollView
     }()
     
     let movieContentView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         return view
     }()
    
@@ -40,28 +41,28 @@ class MovieInfoController: UIViewController {
         return iv
     }()
     
-    let arrowButton = {
+    lazy var arrowButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backArrow"), for: .normal)
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    let playButton = {
+    lazy var playButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "playButton"), for: .normal)
         button.addTarget(self, action: #selector(playMovieTapped), for: .touchUpInside)
         return button
     }()
     
-    let shareButton = {
+    lazy var shareButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "shareButton"), for: .normal)
         button.addTarget(self, action: #selector(shareMovie), for: .touchUpInside)
         return button
     }()
     
-    let favoriteButton = {
+    lazy var favoriteButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "favoriteButton"), for: .normal)
         button.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
@@ -88,7 +89,7 @@ class MovieInfoController: UIViewController {
         let viewBack = UIView()
         viewBack.contentMode = .scaleToFill
         viewBack.layer.cornerRadius = 32
-        viewBack.backgroundColor = .systemBackground
+        viewBack.backgroundColor = UIColor(named: "FFFFFF - 111827")
         viewBack.clipsToBounds = true
         viewBack.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return viewBack
@@ -97,7 +98,7 @@ class MovieInfoController: UIViewController {
     let nameLabel = {
         let label = UILabel()
         label.text = "Айдар"
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         return label
     }()
@@ -125,7 +126,7 @@ class MovieInfoController: UIViewController {
         return label
     }()
     
-    let fullDescriptionButton = {
+    lazy var fullDescriptionButton = {
         let button = UIButton()
         button.setTitle("Толығырақ", for: .normal)
         button.setTitleColor(UIColor(red: 0.7, green: 0.46, blue: 0.97, alpha: 1), for: .normal)
@@ -175,12 +176,12 @@ class MovieInfoController: UIViewController {
     let seasonsLabel = {
         let label = UILabel()
         label.text = "Бөлімдер"
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         return label
     }()
     
-    let seasonsButton = {
+    lazy var seasonsButton = {
         let button = UIButton()
         button.setTitle("5 сезон, 46 серия", for: .normal)
         button.contentHorizontalAlignment = .right
@@ -199,7 +200,7 @@ class MovieInfoController: UIViewController {
     let screenshotsLabel = {
         let label = UILabel()
         label.text = "Скриншоттар"
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         return label
     }()
@@ -207,7 +208,7 @@ class MovieInfoController: UIViewController {
     let similarMoviesLabel = {
         let label = UILabel()
         label.text = "Ұқсас телехикаялар"
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
         return label
     }()
@@ -225,7 +226,7 @@ class MovieInfoController: UIViewController {
         collectionView.register(ScreenshotCollectionViewCell.self, forCellWithReuseIdentifier: "ScreenshotCell")
 
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         return collectionView
     }()
@@ -242,13 +243,14 @@ class MovieInfoController: UIViewController {
         collectionView.register(SimilarCollectionViewCell.self, forCellWithReuseIdentifier: "SimilarCell")
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         return collectionView
     }()
 
     
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -256,6 +258,7 @@ class MovieInfoController: UIViewController {
         setData()
         buttonsSettings()
         downloadSimilar()
+        localizeLanguage()
         
         screenshotsCollectionView.delegate = self
         screenshotsCollectionView.dataSource = self
@@ -282,7 +285,7 @@ class MovieInfoController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         view.addSubview(movieScrollView)
         movieScrollView.addSubview(movieContentView)
@@ -319,7 +322,9 @@ class MovieInfoController: UIViewController {
         }
         
         movieContentView.snp.makeConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()        }
+            make.bottom.right.left.equalToSuperview()
+            make.top.equalTo(movieScrollView.contentLayoutGuide.snp.top)
+        }
         
         posterImageView.snp.makeConstraints { make in
             make.right.left.top.equalToSuperview()

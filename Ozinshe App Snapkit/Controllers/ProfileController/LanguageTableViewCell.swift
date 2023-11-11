@@ -15,7 +15,7 @@ class LanguageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Қазақша"
         label.font = UIFont(name: "SFProDisplay-Semibold", size: 16)
-        label.textColor = UIColor(red: 0.067, green: 0.094, blue: 0.153, alpha: 1)
+        label.textColor = UIColor(named: "111827 - FFFFFF")
         
         return label
     }()
@@ -45,6 +45,7 @@ class LanguageTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
+        contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
         contentView.addSubview(languageLabel)
         contentView.addSubview(checkImage)
