@@ -67,8 +67,7 @@ class HistoryTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(historyCollection)
-        contentView.addSubview(titleLabel)
+        contentView.addSubviews(historyCollection, titleLabel)
         
         historyCollection.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide)

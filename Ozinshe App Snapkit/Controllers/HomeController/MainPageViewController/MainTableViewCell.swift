@@ -107,10 +107,7 @@ class MainTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(mainCollection)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(allLabel)
-        
+        contentView.addSubviews(mainCollection, titleLabel, allLabel)
         
         mainCollection.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide)

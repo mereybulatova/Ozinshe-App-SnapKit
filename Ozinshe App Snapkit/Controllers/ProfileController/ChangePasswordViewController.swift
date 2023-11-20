@@ -164,15 +164,7 @@ class ChangePasswordViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(passwordImage)
-        view.addSubview(showPasswordButton)
-        view.addSubview(repeatPasswordLabel)
-        view.addSubview(repeatPasswordTextField)
-        view.addSubview(repeatPasswordImage)
-        view.addSubview(repeatShowPasswordButton)
-        view.addSubview(saveChangesButton)
+        view.addSubviews(passwordLabel, passwordTextField, passwordImage, showPasswordButton, repeatPasswordLabel, repeatPasswordTextField, repeatPasswordImage, repeatShowPasswordButton, saveChangesButton)
         
         passwordLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)

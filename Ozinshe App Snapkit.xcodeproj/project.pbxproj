@@ -31,6 +31,7 @@
 		C40671092AFB0330008456B7 /* BannerMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40671082AFB0330008456B7 /* BannerMovie.swift */; };
 		C406710B2AFB0355008456B7 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406710A2AFB0355008456B7 /* Season.swift */; };
 		C406710D2AFB05CB008456B7 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C406710C2AFB05CB008456B7 /* CategoryTableViewController.swift */; };
+		C41F9DFB2B0BEBA300783142 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F9DFA2B0BEBA300783142 /* Extensions.swift */; };
 		C479F1C62AF010C100C6D84C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1C52AF010C100C6D84C /* AppDelegate.swift */; };
 		C479F1C82AF010C100C6D84C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F1C72AF010C100C6D84C /* SceneDelegate.swift */; };
 		C479F1CF2AF010C200C6D84C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C479F1CE2AF010C200C6D84C /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		C479F21C2AF2B55C00C6D84C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F21B2AF2B55C00C6D84C /* ProfileViewController.swift */; };
 		C479F21E2AF2CFCF00C6D84C /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F21D2AF2CFCF00C6D84C /* MovieTableViewCell.swift */; };
 		C479F2212AF535B200C6D84C /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F2202AF535B200C6D84C /* SearchCollectionViewCell.swift */; };
+		C4C8EFEB2B0AB39400284A0E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C479F1D32AF010C200C6D84C /* Info.plist */; };
 		C4CA3C7D2AF56AE40003533D /* MainBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C7C2AF56AE40003533D /* MainBannerTableViewCell.swift */; };
 		C4CA3C7F2AF571D40003533D /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C7E2AF571D40003533D /* BannerCollectionViewCell.swift */; };
 		C4CA3C812AF594B90003533D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C802AF594B90003533D /* HistoryTableViewCell.swift */; };
@@ -86,6 +88,7 @@
 		C40671082AFB0330008456B7 /* BannerMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMovie.swift; sourceTree = "<group>"; };
 		C406710A2AFB0355008456B7 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
 		C406710C2AFB05CB008456B7 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		C41F9DFA2B0BEBA300783142 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C479F1C22AF010C100C6D84C /* Ozinshe App Snapkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ozinshe App Snapkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C479F1C52AF010C100C6D84C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C479F1C72AF010C100C6D84C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,7 +234,6 @@
 				C479F20E2AF2B35200C6D84C /* SignInController */,
 				C479F2102AF2B37200C6D84C /* Extensions */,
 				C479F20F2AF2B36A00C6D84C /* Static */,
-				C479F1DD2AF0148000C6D84C /* Fonts */,
 				C479F2112AF2B3B600C6D84C /* Shared Instance */,
 				C479F2132AF2B47700C6D84C /* TabBarController.swift */,
 				C479F1D92AF012FF00C6D84C /* Supporting */,
@@ -242,6 +244,7 @@
 		C479F1D92AF012FF00C6D84C /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				C479F1DD2AF0148000C6D84C /* Fonts */,
 				C479F1CE2AF010C200C6D84C /* Assets.xcassets */,
 				C479F1D02AF010C200C6D84C /* LaunchScreen.storyboard */,
 				C479F1C52AF010C100C6D84C /* AppDelegate.swift */,
@@ -283,6 +286,7 @@
 		C479F2102AF2B37200C6D84C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C41F9DFA2B0BEBA300783142 /* Extensions.swift */,
 				C479F1F62AF02D7700C6D84C /* TextFieldWithPadding.swift */,
 			);
 			path = Extensions;
@@ -434,6 +438,7 @@
 				C479F1CF2AF010C200C6D84C /* Assets.xcassets in Resources */,
 				C479F1F02AF01F8C00C6D84C /* SF-Pro-Display-Regular.otf in Resources */,
 				C479F1EC2AF01F7100C6D84C /* SF-Pro-Display-Bold.otf in Resources */,
+				C4C8EFEB2B0AB39400284A0E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +514,7 @@
 				C4CA3C872AF5B6DB0003533D /* MainTableViewCell.swift in Sources */,
 				C40670BD2AF7DD24008456B7 /* ScreenshotCollectionViewCell.swift in Sources */,
 				C40670E62AF85830008456B7 /* SeasonSeriesTableViewCell.swift in Sources */,
+				C41F9DFB2B0BEBA300783142 /* Extensions.swift in Sources */,
 				C40670B92AF6D603008456B7 /* MovieInfoController.swift in Sources */,
 				C479F1C62AF010C100C6D84C /* AppDelegate.swift in Sources */,
 				C40670F42AFA9B39008456B7 /* LanguageTableViewCell.swift in Sources */,

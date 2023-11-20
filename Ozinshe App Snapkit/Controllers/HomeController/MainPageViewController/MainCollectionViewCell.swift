@@ -53,9 +53,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     
     func setupUI() {
         
-        contentView.addSubview(image)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subtitleLabel)
+        contentView.addSubviews(image, titleLabel, subtitleLabel)
         
         image.snp.makeConstraints { make in
             make.top.equalToSuperview()

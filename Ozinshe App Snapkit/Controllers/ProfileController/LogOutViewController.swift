@@ -76,11 +76,7 @@ class LogOutViewController: UIViewController, UIGestureRecognizerDelegate {
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         
         view.addSubview(backView)
-        backView.addSubview(homeView)
-        backView.addSubview(logOutLabel)
-        backView.addSubview(questionLabel)
-        backView.addSubview(agreeButton)
-        backView.addSubview(disagreeButton)
+        backView.addSubviews(homeView, logOutLabel, questionLabel, agreeButton, disagreeButton)
         
         backView.snp.makeConstraints { make in
             make.height.equalTo(303)

@@ -65,9 +65,7 @@ class GenreTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(genreCollection)
-        contentView.addSubview(titleLabel)
-        
+        contentView.addSubviews(genreCollection, titleLabel)
         
         genreCollection.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide)

@@ -212,18 +212,7 @@ class SignInViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        view.addSubview(welcomeLabel)
-        view.addSubview(signInLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(emailImage)
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(passwordImage)
-        view.addSubview(showPasswordButton)
-        view.addSubview(signInButton)
-        view.addSubview(signUpButton)
-        view.addSubview(questionLabel)
+        view.addSubviews(welcomeLabel, signInLabel, emailLabel, emailTextField, emailImage, passwordLabel, passwordTextField, passwordImage, showPasswordButton, signInButton, signUpButton, questionLabel)
         
         welcomeLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)

@@ -44,8 +44,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
     
     func setupUI() {
         
-        contentView.addSubview(image)
-        contentView.addSubview(titleLabel)
+        contentView.addSubviews(image, titleLabel)
         
         image.snp.makeConstraints { make in
             make.top.equalToSuperview()

@@ -52,9 +52,7 @@ class SimilarCollectionViewCell: UICollectionViewCell {
     
     func setupUI() {
         
-        contentView.addSubview(imageVi)
-        contentView.addSubview(movieNameLabel)
-        contentView.addSubview(movieGenreNameLabel)
+        contentView.addSubviews(imageVi, movieNameLabel, movieGenreNameLabel)
         
         imageVi.snp.makeConstraints { make in
             make.top.equalToSuperview()

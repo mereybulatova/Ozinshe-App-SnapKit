@@ -237,19 +237,7 @@ class UserInfoViewController: UIViewController {
         view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         navigationItem.title = "Персональная информация"
         
-        view.addSubview(yourNameLabel)
-        view.addSubview(nameTextField)
-        view.addSubview(grayView)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(grayView2)
-        view.addSubview(phoneLabel)
-        view.addSubview(phoneTextField)
-        view.addSubview(grayView3)
-        view.addSubview(birthLabel)
-        view.addSubview(birthTextField)
-        view.addSubview(grayView4)
-        view.addSubview(saveChangesButton)
+        view.addSubviews(yourNameLabel, nameTextField, grayView, emailLabel, emailTextField, grayView2, phoneLabel, phoneTextField, grayView3, birthLabel, birthTextField, grayView4, saveChangesButton)
         
         yourNameLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)

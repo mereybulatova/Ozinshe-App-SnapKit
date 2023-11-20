@@ -94,10 +94,7 @@ class MovieTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(posterImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subtitleLabel)
-        contentView.addSubview(playView)
+        contentView.addSubviews(posterImageView, titleLabel, subtitleLabel, playView)
 
         posterImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)

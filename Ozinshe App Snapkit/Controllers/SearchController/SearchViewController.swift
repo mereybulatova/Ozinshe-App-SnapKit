@@ -197,13 +197,7 @@ class SearchViewController: UIViewController {
     func addViews() {
         view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        view.addSubview(searchButton)
-        view.addSubview(searchTextField)
-        view.addSubview(exitButton)
-        view.addSubview(titleLabel)
-        view.addSubview(collectionView)
-        view.addSubview(tableView)
-        
+        view.addSubviews(searchButton, searchTextField, exitButton, titleLabel, collectionView, tableView)
         
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
@@ -318,7 +312,6 @@ class SearchViewController: UIViewController {
         }
     }
 }
-
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource {
     

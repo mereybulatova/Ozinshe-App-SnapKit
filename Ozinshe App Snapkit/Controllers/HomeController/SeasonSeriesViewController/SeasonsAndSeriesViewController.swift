@@ -115,8 +115,7 @@ class SeasonsAndSeriesViewController: UIViewController, UICollectionViewDelegate
     func setupUI() {
         view.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        view.addSubview(seriesCollectionView)
-        view.addSubview(seriesTableView)
+        view.addSubviews(seriesCollectionView, seriesTableView)
         
         seriesCollectionView.snp.makeConstraints { make in
             make.top.right.left.equalTo(view.safeAreaLayoutGuide)

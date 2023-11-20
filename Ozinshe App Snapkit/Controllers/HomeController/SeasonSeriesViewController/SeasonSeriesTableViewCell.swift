@@ -50,9 +50,7 @@ class SeasonSeriesTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(seriesImage)
-        contentView.addSubview(seriesLabel)
-        contentView.addSubview(grayView)
+        contentView.addSubviews(seriesImage, seriesLabel, grayView)
         
         seriesLabel.snp.makeConstraints { make in
             make.top.equalTo(seriesImage.snp.bottom).offset(8)

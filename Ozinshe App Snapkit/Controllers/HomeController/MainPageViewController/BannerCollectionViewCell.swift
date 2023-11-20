@@ -86,10 +86,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
     func setupUI() {
         
         //MARK: - Add subviews
-        addSubview(titleLabel)
-        addSubview(subtitleLabel)
-        addSubview(image)
-        addSubview(genreNameView)
+        addSubviews(titleLabel, subtitleLabel, image, genreNameView)
         genreNameView.addSubview(genreNameLabel)
         
         //MARK: - Constraints

@@ -72,11 +72,7 @@ class OnboardingCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        addSubview(imageO)
-        addSubview(welcomeLabel)
-        addSubview(fullInfoLabel)
-        addSubview(nextButton)
-        addSubview(skipButton)
+        addSubviews(imageO, welcomeLabel, fullInfoLabel, nextButton, skipButton)
     
         imageO.snp.makeConstraints { make in
             make.top.right.left.equalToSuperview()

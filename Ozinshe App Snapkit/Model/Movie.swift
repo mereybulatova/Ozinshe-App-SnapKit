@@ -8,6 +8,72 @@
 import UIKit
 import SwiftyJSON
 
+/*{
+ "categories": [
+   {
+     "fileId": 0,
+     "id": 0,
+     "link": "string",
+     "movieCount": 0,
+     "name": "string"
+   }
+ ],
+ "categoryAges": [
+   {
+     "fileId": 0,
+     "id": 0,
+     "link": "string",
+     "movieCount": 0,
+     "name": "string"
+   }
+ ],
+ "createdDate": "2023-11-14T20:28:26.523Z",
+ "description": "string",
+ "director": "string",
+ "favorite": true,
+ "genres": [
+   {
+     "fileId": 0,
+     "id": 0,
+     "link": "string",
+     "movieCount": 0,
+     "name": "string"
+   }
+ ],
+ "id": 0,
+ "keyWords": "string",
+ "lastModifiedDate": "2023-11-14T20:28:26.523Z",
+ "movieType": "MOVIE",
+ "name": "string",
+ "poster": {
+   "fileId": 0,
+   "id": 0,
+   "link": "string",
+   "movieId": 0
+ },
+ "producer": "string",
+ "screenshots": [
+   {
+     "fileId": 0,
+     "id": 0,
+     "link": "string",
+     "movieId": 0
+   }
+ ],
+ "seasonCount": 0,
+ "seriesCount": 0,
+ "timing": 0,
+ "trend": true,
+ "video": {
+   "id": 0,
+   "link": "string",
+   "number": 0,
+   "seasonId": 0
+ },
+ "watchCount": 0,
+ "year": 0
+}*/
+
 class Movie {
     public var id: Int = 0
     public var movieType: String = ""

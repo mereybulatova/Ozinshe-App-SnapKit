@@ -42,8 +42,7 @@ class SeasonsAndSeriesCollectionViewCell: UICollectionViewCell {
     
     func setupUI() {
         
-        contentView.addSubview(backView)
-        contentView.addSubview(seasonLabel)
+        contentView.addSubviews(backView, seasonLabel)
         
         backView.snp.makeConstraints { make in
             make.top.right.bottom.left.equalToSuperview()

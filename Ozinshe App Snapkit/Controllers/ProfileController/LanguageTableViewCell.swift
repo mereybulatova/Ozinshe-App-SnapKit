@@ -47,9 +47,7 @@ class LanguageTableViewCell: UITableViewCell {
     func setupUI() {
         contentView.backgroundColor = UIColor(named: "FFFFFF - 111827")
         
-        contentView.addSubview(languageLabel)
-        contentView.addSubview(checkImage)
-        contentView.addSubview(grayView)
+        contentView.addSubviews(languageLabel, checkImage, grayView)
         
         languageLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)

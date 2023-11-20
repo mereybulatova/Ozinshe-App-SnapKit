@@ -189,6 +189,7 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }
     
     //MARK: - Add function
+    
     func localizeLanguage() {
         navigationItem.title = "PROFILE_TITLE".localized()
         userInfoButton.setTitle("USER_INFO_BUTTON".localized(), for: .normal)
@@ -268,24 +269,11 @@ class ProfileViewController: UIViewController, LanguageProtocol {
     }
     
     //MARK: - Add Subview & Constraints
+    
     func setupUI() {
-        view.addSubview(profileImageView)
-        view.addSubview(profileLabel)
-        view.addSubview(subtitleProfileLabel)
-        view.addSubview(backView)
-        backView.addSubview(languageLabel)
-        backView.addSubview(languageButton)
-        backView.addSubview(languageArrowImage)
-        backView.addSubview(languageCellView)
-        backView.addSubview(userInfoLabel)
-        backView.addSubview(userInfoButton)
-        backView.addSubview(userInfoArrowImage)
-        backView.addSubview(userInfoCellView)
-        backView.addSubview(passwordArrowImage)
-        backView.addSubview(passwordEditButton)
-        backView.addSubview(passwordCellView)
-        backView.addSubview(darkModeLabel)
-        backView.addSubview(darkModeSwitch)
+        view.addSubviews(profileImageView, profileLabel, subtitleProfileLabel, backView)
+        
+        backView.addSubviews(languageLabel, languageButton, languageArrowImage, languageCellView, userInfoLabel, userInfoButton, userInfoArrowImage, userInfoCellView, passwordArrowImage, passwordEditButton, passwordCellView, darkModeLabel, darkModeSwitch)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "logOut"), style: .done, target: self, action: #selector(LogOutTapButton))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 1, green: 0.25, blue: 0.17, alpha: 1)
