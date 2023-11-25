@@ -52,7 +52,6 @@
 		C479F21C2AF2B55C00C6D84C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F21B2AF2B55C00C6D84C /* ProfileViewController.swift */; };
 		C479F21E2AF2CFCF00C6D84C /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F21D2AF2CFCF00C6D84C /* MovieTableViewCell.swift */; };
 		C479F2212AF535B200C6D84C /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C479F2202AF535B200C6D84C /* SearchCollectionViewCell.swift */; };
-		C4C8EFEB2B0AB39400284A0E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C479F1D32AF010C200C6D84C /* Info.plist */; };
 		C4CA3C7D2AF56AE40003533D /* MainBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C7C2AF56AE40003533D /* MainBannerTableViewCell.swift */; };
 		C4CA3C7F2AF571D40003533D /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C7E2AF571D40003533D /* BannerCollectionViewCell.swift */; };
 		C4CA3C812AF594B90003533D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CA3C802AF594B90003533D /* HistoryTableViewCell.swift */; };
@@ -438,7 +437,6 @@
 				C479F1CF2AF010C200C6D84C /* Assets.xcassets in Resources */,
 				C479F1F02AF01F8C00C6D84C /* SF-Pro-Display-Regular.otf in Resources */,
 				C479F1EC2AF01F7100C6D84C /* SF-Pro-Display-Bold.otf in Resources */,
-				C4C8EFEB2B0AB39400284A0E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
